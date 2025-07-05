@@ -6,14 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node server.js",
+    "deploy": "npm run build && npx gh-pages -d dist"
   },
   "dependencies": {
-    "vue": "^3.5.17"
+    "vue": "^3.5.17",
+    "express": "^4.18.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",
     "vite": "^7.0.0",
-    "vite-plugin-vue-devtools": "^7.7.7"
+    "vite-plugin-vue-devtools": "^7.7.7",
+    "gh-pages": "^6.1.1"
   }
 }
