@@ -29,10 +29,10 @@
             Microservices, sistem dizaynı və data strukturları ilə güclü AI tətbiqləri hazırlayın.
           </p>
           <div class="course-meta">
-            <div class="meta-item">
-              <span class="meta-label">Müddət:</span>
-              <span class="meta-value">6 ay</span>
-            </div>
+                      <div class="meta-item">
+            <span class="meta-label">Müddət:</span>
+            <span class="meta-value">7 ay</span>
+          </div>
             <div class="meta-item">
               <span class="meta-label">Səviyyə:</span>
               <span class="meta-value">Orta-İrəli</span>
@@ -112,8 +112,8 @@
               >
                 Hamısı
               </button>
-              <button 
-                v-for="month in 6" 
+                             <button 
+                v-for="month in 7" 
                 :key="month"
                 class="filter-btn"
                 :class="{ active: selectedMonth === month }"
@@ -322,14 +322,27 @@ export default {
         {
           id: 6,
           month: 6,
-          title: 'Advanced Topics & Final Project',
+          title: 'Cloud & DevOps',
           topics: [
             'Cloud Deployment (AWS/Azure)',
             'Docker & Kubernetes',
             'CI/CD Pipelines',
+            'Infrastructure as Code',
             'Monitoring & Logging',
+            'Security Best Practices'
+          ]
+        },
+        {
+          id: 7,
+          month: 7,
+          title: 'Final Project & Career Preparation',
+          topics: [
             'Final Project Development',
-            'Code Review & Best Practices'
+            'Code Review & Best Practices',
+            'Performance Optimization',
+            'Portfolio Development',
+            'Interview Preparation',
+            'Industry Standards & Practices'
           ]
         }
       ],
@@ -428,6 +441,22 @@ export default {
           title: 'AI Content Moderation System',
           description: 'AI ilə avtomatik məzmun moderasiya sistemi.',
           technologies: ['Spring Boot', 'AI APIs', 'Microservices'],
+          difficulty: 5
+        },
+        {
+          id: 13,
+          month: 7,
+          title: 'Enterprise AI Platform',
+          description: 'Tam funksional enterprise AI platforması. Müxtəlif AI xidmətlərini birləşdirən kompleks sistem.',
+          technologies: ['Spring Boot', 'Microservices', 'Kubernetes', 'AI/ML APIs'],
+          difficulty: 5
+        },
+        {
+          id: 14,
+          month: 7,
+          title: 'AI-Powered DevOps Pipeline',
+          description: 'AI ilə avtomatlaşdırılmış CI/CD pipeline və deployment optimization sistemi.',
+          technologies: ['Spring Boot', 'Jenkins', 'Docker', 'AI Analytics'],
           difficulty: 5
         }
       ],

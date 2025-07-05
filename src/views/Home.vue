@@ -56,10 +56,10 @@
               <span class="feature">Data Structures</span>
               <span class="feature">AI Integration</span>
             </div>
-            <div class="course-duration">
-              <span class="duration">6 ay</span>
-              <span class="level">Orta-İrəli səviyyə</span>
-            </div>
+                         <div class="course-duration">
+               <span class="duration">7 ay</span>
+               <span class="level">Orta-İrəli səviyyə</span>
+             </div>
             <router-link to="/ai-programming" class="course-button-link">
               <button class="course-button">Ətraflı Məlumat</button>
             </router-link>
