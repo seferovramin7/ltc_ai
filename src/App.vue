@@ -84,7 +84,7 @@
               <span class="feature">MLOps</span>
             </div>
             <div class="course-duration">
-              <span class="duration">8 ay</span>
+              <span class="duration">4 ay</span>
               <span class="level">Başlanğıc-Orta səviyyə</span>
             </div>
             <button class="course-button">Kursa Başla</button>
