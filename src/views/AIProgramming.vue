@@ -23,7 +23,7 @@
           <div class="course-icon-large">
             <span class="icon-java">☕</span>
           </div>
-          <h1 class="course-hero-title">AI Əsaslı Proqram Mühəndisliyi - Core Java Proqramlaşdırma</h1>
+          <h1 class="course-hero-title">Suni İntellekt Proqramlaşdırma</h1>
                       <p class="course-hero-description">
               Core Java Proqramlaşdırma əsasları, Məlumat Strukturları və Alqoritmlər, Sistem Dizaynını master edin. 
               Spring Boot, Mikroservislər, AI Agent İnkişafı və müəssisə səviyyəli backend tətbiqləri yaradın.
