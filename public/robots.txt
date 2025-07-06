@@ -4,9 +4,29 @@ Allow: /
 # Sitemap location
 Sitemap: https://ltclab.edu.az/sitemap.xml
 
-# Allow all search engines to crawl our AI courses
+# Crawl-delay for better server performance
+Crawl-delay: 1
+
+# Allow all important pages for suni intellekt SEO
 Allow: /ai-programming
 Allow: /ai-engineering
+Allow: /suni-intellekt
+Allow: /suni-intellekt-kurslari
+Allow: /ai-kurslari
+Allow: /masin-oyrenme
+Allow: /derin-oyrenme
+Allow: /python-ai
+Allow: /java-ai
 
-# Crawl delay (optional, helps with server load)
-Crawl-delay: 1 
+# Disallow unnecessary files
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /*.map$
+Disallow: /dist/
+Disallow: /.git/
+Disallow: /package.json
+Disallow: /vite.config.js
+Disallow: /jsconfig.json
+
+# Host specification
+Host: ltclab.edu.az 

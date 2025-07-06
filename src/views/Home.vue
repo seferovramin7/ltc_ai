@@ -44,7 +44,7 @@
             <div class="course-icon">
               <span class="icon-java" role="img" aria-label="Java Programming">☕</span>
             </div>
-            <h3 class="course-title" itemprop="name">Suni İntellekt Əsaslı Proqramlaşdırma</h3>
+            <h3 class="course-title" itemprop="name">Suni intellekt Əsaslı Proqramlaşdırma</h3>
             <p class="course-description" itemprop="description">
               Core Java Proqramlaşdırma, Məlumat Strukturları və Alqoritmlər, Sistem Dizaynı öyrənin. Spring Boot, Mikroservislər, 
               AI Agent İnkişafı və müəssisə səviyyəli backend tətbiqləri hazırlayın.
@@ -70,7 +70,7 @@
             <div class="course-icon">
               <span class="icon-python" role="img" aria-label="Python Programming">🐍</span>
             </div>
-            <h3 class="course-title" itemprop="name">Suni İntellekt Mühəndisliyi - Python Maşın Öyrənməsi və Dərin Öyrənmə</h3>
+            <h3 class="course-title" itemprop="name">Suni intellekt Mühəndisliyi - Python Maşın Öyrənməsi və Dərin Öyrənmə</h3>
             <p class="course-description" itemprop="description">
               Python Proqramlaşdırma, NumPy, Pandas, Maşın Öyrənməsi, Dərin Öyrənmə, NLP, Kompüter Görmə öyrənin. 
               TensorFlow, Keras, LLM-lər və MLOps texnologiyalarını master edin.
@@ -124,8 +124,9 @@
         <div class="message-content">
           <h2 class="message-title">Gələcəyin Texnologiyası İndi Əlinizdə</h2>
           <p class="message-text">
-            Suni intellekt yalnız gələcəyin texnologiyası deyil, bugünün reallığıdır. 
-            LTC Lab-da biz sizə bu güclü alətləri öyrətmək və karyeranızı növbəti səviyyəyə çatdırmaq üçün buradayıq.
+            <strong>Suni intellekt</strong> yalnız gələcəyin texnologiyası deyil, bugünün reallığıdır. 
+            LTC Lab-da biz sizə <strong>suni intellekt kursları</strong> ilə bu güclü alətləri öyrətmək və karyeranızı növbəti səviyyəyə çatdırmaq üçün buradayıq.
+            Azərbaycanda ən yaxşı <strong>AI kursları</strong> və <strong>maşın öyrənməsi</strong> təhsili alın.
           </p>
           <div class="message-features">
             <div class="feature-item">
@@ -160,8 +161,8 @@
         <div class="footer-content">
           <div class="footer-brand">
             <p class="footer-text">
-              LTC Lab - Azərbaycanın aparıcı texnologiya təhsil mərkəzi. 
-              Gələcəyin rəqəmsal dünyasına hazırlaşın.
+              LTC Lab - Azərbaycanın aparıcı <strong>suni intellekt</strong> və texnologiya təhsil mərkəzi. 
+              <strong>Suni intellekt kursları</strong> ilə gələcəyin rəqəmsal dünyasına hazırlaşın.
             </p>
           </div>
           <div class="footer-links">
@@ -198,12 +199,12 @@ export default {
   name: 'Home',
   mounted() {
     // Set page title and meta tags
-    document.title = 'LTC Lab - AI Based Software Engineering | Core Java Programming | Machine Learning Courses Azerbaijan';
+    document.title = 'Suni intellekt kursları LTC Lab - AI Proqramlaşdırma və Maşın Öyrənməsi | Bakı';
     
     // Update meta description
     let metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Learn AI Based Software Engineering, Core Java Programming, Data Structures & Algorithms, System Design, Machine Learning, Deep Learning at LTC Lab Azerbaijan. Expert-led courses with hands-on projects.');
+      metaDescription.setAttribute('content', 'Suni intellekt kursları LTC Lab-da! AI proqramlaşdırma, maşın öyrənməsi, dərin öyrənmə, Python AI, Java AI öyrənin. Azərbaycanda ən yaxşı suni intellekt təhsili. Bakıda professional AI kursları.');
     }
     
     // Update meta keywords
