@@ -81,20 +81,112 @@
         
         <!-- Syllabus Tab -->
         <div v-if="activeTab === 'syllabus'" class="tab-content">
-          <div class="syllabus-grid">
-            <div 
-              v-for="month in syllabus" 
-              :key="month.id"
-              class="syllabus-card"
-            >
-              <div class="syllabus-header">
-                <h3>{{ month.title }}</h3>
-                <span class="month-badge">{{ month.month }}. ay</span>
+          <!-- Section Filter -->
+          <div class="section-filter">
+            <h3>Kurikulum Bölmələri</h3>
+            <div class="section-filter-buttons">
+              <button 
+                class="section-filter-btn"
+                :class="{ active: selectedSection === 'all' }"
+                @click="selectedSection = 'all'"
+              >
+                Hamısı
+              </button>
+              <button 
+                class="section-filter-btn core-java"
+                :class="{ active: selectedSection === 'core-java' }"
+                @click="selectedSection = 'core-java'"
+              >
+                Core Java Programming
+              </button>
+              <button 
+                class="section-filter-btn dsa"
+                :class="{ active: selectedSection === 'dsa' }"
+                @click="selectedSection = 'dsa'"
+              >
+                DSA
+              </button>
+              <button 
+                class="section-filter-btn system-design"
+                :class="{ active: selectedSection === 'system-design' }"
+                @click="selectedSection = 'system-design'"
+              >
+                System Design
+              </button>
+            </div>
+          </div>
+
+          <!-- Core Java Programming Section -->
+          <div v-if="selectedSection === 'all' || selectedSection === 'core-java'" class="section-container">
+            <div class="section-header">
+              <h2 class="section-title">Core Java Programming</h2>
+              <span class="section-count">6 Modul</span>
+            </div>
+            <div class="syllabus-grid">
+              <div 
+                v-for="module in coreJavaModules" 
+                :key="module.id"
+                class="syllabus-card core-java"
+              >
+                <div class="syllabus-header">
+                  <h3>{{ module.title }}</h3>
+                  <span class="module-number">{{ module.id }}</span>
+                </div>
+                <div class="syllabus-content">
+                  <ul class="topic-list">
+                    <li v-for="topic in module.topics" :key="topic">{{ topic }}</li>
+                  </ul>
+                </div>
               </div>
-              <div class="syllabus-content">
-                <ul class="topic-list">
-                  <li v-for="topic in month.topics" :key="topic">{{ topic }}</li>
-                </ul>
+            </div>
+          </div>
+
+          <!-- Data Structures & Algorithms Section -->
+          <div v-if="selectedSection === 'all' || selectedSection === 'dsa'" class="section-container">
+            <div class="section-header">
+              <h2 class="section-title">Data Structures & Algorithms</h2>
+              <span class="section-count">2 Modul</span>
+            </div>
+            <div class="syllabus-grid">
+              <div 
+                v-for="module in dsaModules" 
+                :key="module.id"
+                class="syllabus-card dsa"
+              >
+                <div class="syllabus-header">
+                  <h3>{{ module.title }}</h3>
+                  <span class="module-number">{{ module.id }}</span>
+                </div>
+                <div class="syllabus-content">
+                  <ul class="topic-list">
+                    <li v-for="topic in module.topics" :key="topic">{{ topic }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- System Design Section -->
+          <div v-if="selectedSection === 'all' || selectedSection === 'system-design'" class="section-container">
+            <div class="section-header">
+              <h2 class="section-title">System Design</h2>
+              <span class="section-count">3 Modul</span>
+            </div>
+            <div class="syllabus-grid">
+              <div 
+                v-for="module in systemDesignModules" 
+                :key="module.id"
+                class="syllabus-card system-design"
+              >
+                <div class="syllabus-header">
+                  <h3>{{ module.title }}</h3>
+                  <span class="module-number">{{ module.id }}</span>
+                </div>
+                <div class="syllabus-content">
+                  <ul class="topic-list">
+                    <li v-for="topic in module.topics" :key="topic">{{ topic }}</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -253,96 +345,146 @@ export default {
     return {
       activeTab: 'syllabus',
       selectedMonth: 'all',
+      selectedSection: 'all',
       syllabus: [
         {
           id: 1,
-          month: 1,
+          section: 'Core Java Programming',
           title: 'Java Fundamentals & OOP',
           topics: [
-            'Java syntax və əsas konseptlər',
-            'Object-Oriented Programming',
-            'Collections Framework',
-            'Exception Handling',
-            'Lambda Expressions',
-            'Stream API'
+            'Git & Version Control, IntelliJ IDEA',
+            'Variables, Data Types, Operators',
+            'Control Flow (if-else, switch), Loops',
+            'Arrays, Classes and Objects',
+            'Object-Oriented Programming, Encapsulation',
+            'Inheritance, Abstraction, Interfaces, Polymorphism'
           ]
         },
         {
           id: 2,
-          month: 2,
-          title: 'Spring Framework Basics',
+          section: 'Core Java Programming',
+          title: 'Advanced Java Concepts',
           topics: [
-            'Spring Core və Dependency Injection',
-            'Spring Boot əsasları',
-            'RESTful Web Services',
-            'Data Access (JPA/Hibernate)',
-            'Spring Security əsasları',
-            'Testing with Spring'
+            'Exception Handling',
+            'Java Memory Allocation, Heap and Stack',
+            'Garbage Collection in Java',
+            'Input/Output Operations, File Handling',
+            'Generics',
+            'Collections Framework: Lists, Sets, Maps'
           ]
         },
         {
           id: 3,
-          month: 3,
-          title: 'Database & Data Structures',
+          section: 'Core Java Programming',
+          title: 'Concurrency & Modern Java',
           topics: [
-            'SQL və NoSQL verilənlər bazaları',
-            'Database Design Patterns',
-            'Data Structures & Algorithms',
-            'Big O Notation',
-            'Searching & Sorting Algorithms',
-            'Tree və Graph Algorithms'
+            'Multithreading: Process vs Thread, Lifecycle',
+            'Thread Synchronization & Control',
+            'String, StringBuilder, StringBuffer',
+            'Enum, Wrapper Classes, Autoboxing',
+            'Functional Programming with Lambda Expressions',
+            'Java Stream API & Design Patterns'
           ]
         },
         {
           id: 4,
-          month: 4,
-          title: 'Microservices Architecture',
+          section: 'Core Java Programming',
+          title: 'Spring Framework & REST APIs',
           topics: [
-            'Microservices Design Patterns',
-            'Service Discovery',
-            'API Gateway',
-            'Circuit Breaker Pattern',
-            'Event-Driven Architecture',
-            'Message Queues (RabbitMQ/Kafka)'
+            'Spring Core: IoC, Dependency Injection',
+            'Spring Bean Management & Controllers',
+            'REST API Design & Best Practices',
+            'Validation, Exception Handling, Swagger',
+            'SQL, Joins',
+            'Data Persistence with JPA & Hibernate'
           ]
         },
         {
           id: 5,
-          month: 5,
-          title: 'System Design & AI Integration',
+          section: 'Core Java Programming',
+          title: 'Microservices & Security',
           topics: [
-            'System Design Principles',
-            'Scalability Patterns',
-            'AI/ML API Integration',
-            'Machine Learning Pipelines',
-            'Real-time Data Processing',
-            'Performance Optimization'
+            'API Gateway & Rate Limiting',
+            'Spring Feign Client',
+            'Spring Security OAuth & JWT',
+            'Redis Caching & Session Management',
+            'Docker Basics',
+            'Microservices Design Patterns'
           ]
         },
         {
           id: 6,
-          month: 6,
-          title: 'Cloud & DevOps',
+          section: 'Core Java Programming',
+          title: 'Advanced Topics & Testing',
           topics: [
-            'Cloud Deployment (AWS/Azure)',
-            'Docker & Kubernetes',
-            'CI/CD Pipelines',
-            'Infrastructure as Code',
-            'Monitoring & Logging',
-            'Security Best Practices'
+            'Unit Testing (JUnit, Mockito, TestContainers)',
+            'Integration Testing (Spring Test, WireMock)',
+            'GraphQL, gRPC, WebSocket',
+            'Apache Kafka, Circuit Breakers',
+            'Database Optimization & AWS Basics',
+            'AI Agent, Vector DB, RAG, Spring AI'
           ]
         },
         {
           id: 7,
-          month: 7,
-          title: 'Final Project & Career Preparation',
+          section: 'Data Structures & Algorithms',
+          title: 'DSA Fundamentals',
           topics: [
-            'Final Project Development',
-            'Code Review & Best Practices',
-            'Performance Optimization',
-            'Portfolio Development',
-            'Interview Preparation',
-            'Industry Standards & Practices'
+            'Big-O Notation, Arrays & Hashing',
+            'Two Pointers Technique',
+            'LeetCode Problems (Easy Level)',
+            'Arrays & Strings Problem Solving'
+          ]
+        },
+        {
+          id: 8,
+          section: 'Data Structures & Algorithms',
+          title: 'Advanced Data Structures',
+          topics: [
+            'Linked Lists, Stacks, Queues',
+            'Binary Search, Sliding Window',
+            'Trees (BST, DFS, BFS)',
+            '1-D Dynamic Programming',
+            'LeetCode Problems (Medium Level)'
+          ]
+        },
+        {
+          id: 9,
+          section: 'System Design',
+          title: 'System Design Fundamentals',
+          topics: [
+            'System Architecture & Components',
+            'Databases & Storage Solutions',
+            'Caching & In-Memory Stores',
+            'Distributed Systems Concepts',
+            'Performance & Optimization',
+            'Scalability Strategies'
+          ]
+        },
+        {
+          id: 10,
+          section: 'System Design',
+          title: 'AI System Design',
+          topics: [
+            'AI Agent Architecture',
+            'Perception, Decision-making, Action',
+            'Learning & Adaptation Systems',
+            'Real-time Data Handling',
+            'Knowledge Representation',
+            'Ethics & Transparency in AI'
+          ]
+        },
+        {
+          id: 11,
+          section: 'System Design',
+          title: 'Large Scale System Design',
+          topics: [
+            'YouTube System Design',
+            'Video Streaming Architecture (CDN)',
+            'WhatsApp System Design',
+            'Real-time Messaging Systems',
+            'Store-and-Forward Architecture',
+            'User Engagement Metrics'
           ]
         }
       ],
@@ -515,6 +657,15 @@ export default {
         return this.monthlyProjects;
       }
       return this.monthlyProjects.filter(project => project.month === this.selectedMonth);
+    },
+    coreJavaModules() {
+      return this.syllabus.filter(module => module.section === 'Core Java Programming');
+    },
+    dsaModules() {
+      return this.syllabus.filter(module => module.section === 'Data Structures & Algorithms');
+    },
+    systemDesignModules() {
+      return this.syllabus.filter(module => module.section === 'System Design');
     }
   }
 }
