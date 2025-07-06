@@ -23,10 +23,10 @@
           <div class="course-icon-large">
             <span class="icon-python">🐍</span>
           </div>
-          <h1 class="course-hero-title">Suni intellekt mühəndisliyi</h1>
+          <h1 class="course-hero-title">AI Mühəndisliyi - Python Maşın Öyrənməsi və Dərin Öyrənmə</h1>
           <p class="course-hero-description">
-            Python əsasında AI və Machine Learning həlləri yaradın. NumPy, Pandas, TensorFlow və MLOps 
-            texnologiyalarını öyrənərək peşəkar AI mühəndisi olun.
+            Python Proqramlaşdırma, Maşın Öyrənməsi, Dərin Öyrənmə, NLP, Kompüter Görmə master edin. 
+            TensorFlow, Keras, LLM-lər, MLOps və AI tətbiq inkişafını öyrənin.
           </p>
           <div class="course-meta">
             <div class="meta-item">
@@ -249,6 +249,22 @@
 <script>
 export default {
   name: 'AIEngineering',
+  mounted() {
+    // Set page title and meta tags
+    document.title = 'AI Engineering - Python Machine Learning & Deep Learning | LTC Lab';
+    
+    // Update meta description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Master AI Engineering with Python, Machine Learning, Deep Learning, NLP, Computer Vision. Learn TensorFlow, Keras, LLMs, MLOps. 4-month comprehensive AI course at LTC Lab Azerbaijan.');
+    }
+    
+    // Update meta keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+      metaKeywords.setAttribute('content', 'AI Engineering, Python Machine Learning, Deep Learning, NLP, Computer Vision, TensorFlow, Keras, Neural Networks, MLOps, Data Science, AI Course Azerbaijan, LTC Lab, Artificial Intelligence, Python Programming, Scikit-learn, OpenCV, LSTM, CNN, GANs');
+    }
+  },
   data() {
     return {
       activeTab: 'syllabus',
@@ -311,7 +327,7 @@ export default {
         {
           id: 1,
           month: 1,
-          title: 'Sales Data Analysis',
+          title: 'Satış Məlumatları Analizi',
           description: 'Pandas və NumPy istifadə edərək satış məlumatlarının analizi və vizualizasiyası.',
           technologies: ['Python', 'Pandas', 'NumPy', 'Matplotlib'],
           difficulty: 2
@@ -319,7 +335,7 @@ export default {
         {
           id: 2,
           month: 1,
-          title: 'Weather Data Visualization',
+          title: 'Hava Məlumatları Vizualizasiyası',
           description: 'Hava məlumatlarının toplanması və interaktiv vizualizasiya dashboard-u.',
           technologies: ['Python', 'Pandas', 'Seaborn', 'Plotly'],
           difficulty: 3
@@ -327,7 +343,7 @@ export default {
         {
           id: 3,
           month: 2,
-          title: 'House Price Prediction',
+          title: 'Ev Qiymət Proqnozlaşdırması',
           description: 'Ev qiymətlərinin proqnozlaşdırılması üçün ML modeli.',
           technologies: ['Python', 'Scikit-learn', 'Pandas', 'Regression'],
           difficulty: 3
@@ -335,7 +351,7 @@ export default {
         {
           id: 4,
           month: 2,
-          title: 'Customer Segmentation',
+          title: 'Müştəri Seqmentasiyası',
           description: 'K-means clustering ilə müştəri seqmentasiyası.',
           technologies: ['Python', 'Scikit-learn', 'Clustering', 'Visualization'],
           difficulty: 4
@@ -343,7 +359,7 @@ export default {
         {
           id: 5,
           month: 3,
-          title: 'Image Classification CNN',
+          title: 'Şəkil Klassifikasiyası CNN',
           description: 'Convolutional Neural Network ilə şəkil klassifikasiyası.',
           technologies: ['Python', 'TensorFlow', 'Keras', 'CNN'],
           difficulty: 4
@@ -351,7 +367,7 @@ export default {
         {
           id: 6,
           month: 3,
-          title: 'Stock Price Prediction RNN',
+          title: 'Səhm Qiymət Proqnozlaşdırması RNN',
           description: 'LSTM şəbəkələri ilə səhm qiymətlərinin proqnozlaşdırılması.',
           technologies: ['Python', 'TensorFlow', 'LSTM', 'Time Series'],
           difficulty: 5
@@ -359,7 +375,7 @@ export default {
         {
           id: 7,
           month: 4,
-          title: 'Sentiment Analysis NLP',
+          title: 'Sentiment Analizi NLP',
           description: 'Mətn məlumatlarının sentiment analizi və təsnifatı.',
           technologies: ['Python', 'NLTK', 'TensorFlow', 'NLP'],
           difficulty: 4
@@ -367,7 +383,7 @@ export default {
         {
           id: 8,
           month: 4,
-          title: 'Object Detection System',
+          title: 'Obyekt Aşkarlama Sistemi',
           description: 'Real-time obyekt aşkarlama sistemi.',
           technologies: ['Python', 'OpenCV', 'YOLO', 'Computer Vision'],
           difficulty: 5
@@ -376,8 +392,8 @@ export default {
       finalProjects: [
         {
           id: 1,
-          title: 'Intelligent Healthcare Assistant',
-          type: 'AI-Powered Application',
+          title: 'Ağıllı Səhiyyə Köməkçisi',
+          type: 'AI-İdarəli Tətbiq',
           description: 'Tibbi şəkillərin analizi və xəstəlik diaqnostikası üçün AI köməkçisi.',
           features: [
             'Medical image analysis',
@@ -391,8 +407,8 @@ export default {
         },
         {
           id: 2,
-          title: 'Smart Trading Bot',
-          type: 'Financial AI System',
+          title: 'Ağıllı Ticarət Botu',
+          type: 'Maliyyə AI Sistemi',
           description: 'Cryptocurrency və forex ticarəti üçün AI-əsaslı avtomatik ticarət botu.',
           features: [
             'Real-time market data analysis',
@@ -406,8 +422,8 @@ export default {
         },
         {
           id: 3,
-          title: 'Multilingual Content Generator',
-          type: 'NLP Application',
+          title: 'Çoxdilli Məzmun Yaradıcısı',
+          type: 'NLP Tətbiqi',
           description: 'Çoxdilli məzmun yaradıcısı və tərcümə sistemi.',
           features: [
             'Text generation in multiple languages',
@@ -421,8 +437,8 @@ export default {
         },
         {
           id: 4,
-          title: 'Computer Vision Security System',
-          type: 'IoT AI Solution',
+          title: 'Kompüter Görmə Təhlükəsizlik Sistemi',
+          type: 'IoT AI Həlli',
           description: 'Ağıllı təhlükəsizlik sistemi real-time obyekt və üz tanıma ilə.',
           features: [
             'Real-time face recognition',

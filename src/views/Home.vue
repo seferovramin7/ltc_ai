@@ -20,8 +20,8 @@
     <section class="hero">
       <div class="container">
         <div class="hero-content">
-          <h1 class="hero-title">
-            Gələcəyin <span class="highlight">AI texnologiyaları</span> ilə tanış olun
+          <h1 class="hero-title"> Gələcəyin
+            <span class="highlight">Suni intellekt texnologiyaları</span> ilə tanış olun
           </h1>
           <div class="hero-tags">
             <span class="tag">🚀 Praktik təcrübə</span>
@@ -35,19 +35,19 @@
     </section>
 
     <!-- Courses Section -->
-    <section id="courses" class="courses">
+    <section id="courses" class="courses" itemscope itemtype="https://schema.org/EducationalOrganization">
       <div class="container">
-        <h2 class="section-title">AI Kurslarımız</h2>
-        <div class="courses-grid">
+        <h2 class="section-title">Suni intellekt kurslarımız</h2>
+        <div class="courses-grid" itemscope itemtype="https://schema.org/Course">
           <!-- AI Programming Course -->
-          <div class="course-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="course-card" data-aos="fade-up" data-aos-delay="100" itemscope itemtype="https://schema.org/Course">
             <div class="course-icon">
-              <span class="icon-java">☕</span>
+              <span class="icon-java" role="img" aria-label="Java Programming">☕</span>
             </div>
-            <h3 class="course-title">Suni intellekt əsaslı proqramlaşdırma</h3>
-            <p class="course-description">
-              Java və Spring Framework əsasında müasir AI həlləri yaratmaq üçün backend development öyrənin. 
-              Microservices, sistem dizaynı və data strukturları ilə güclü AI tətbiqləri hazırlayın.
+            <h3 class="course-title" itemprop="name">Suni İntellekt Əsaslı Proqramlaşdırma</h3>
+            <p class="course-description" itemprop="description">
+              Core Java Proqramlaşdırma, Məlumat Strukturları və Alqoritmlər, Sistem Dizaynı öyrənin. Spring Boot, Mikroservislər, 
+              AI Agent İnkişafı və müəssisə səviyyəli backend tətbiqləri hazırlayın.
             </p>
             <div class="course-features">
               <span class="feature">Java & Spring</span>
@@ -66,14 +66,14 @@
           </div>
 
           <!-- AI Engineering Course -->
-          <div class="course-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="course-card" data-aos="fade-up" data-aos-delay="200" itemscope itemtype="https://schema.org/Course">
             <div class="course-icon">
-              <span class="icon-python">🐍</span>
+              <span class="icon-python" role="img" aria-label="Python Programming">🐍</span>
             </div>
-            <h3 class="course-title">Suni intellekt mühəndisliyi</h3>
-            <p class="course-description">
-              Python əsasında AI və Machine Learning həlləri yaradın. NumPy, Pandas, TensorFlow və MLOps 
-              texnologiyalarını öyrənərək peşəkar AI mühəndisi olun.
+            <h3 class="course-title" itemprop="name">Suni İntellekt Mühəndisliyi - Python Maşın Öyrənməsi və Dərin Öyrənmə</h3>
+            <p class="course-description" itemprop="description">
+              Python Proqramlaşdırma, NumPy, Pandas, Maşın Öyrənməsi, Dərin Öyrənmə, NLP, Kompüter Görmə öyrənin. 
+              TensorFlow, Keras, LLM-lər və MLOps texnologiyalarını master edin.
             </p>
             <div class="course-features">
               <span class="feature">Python & ML</span>
@@ -197,6 +197,20 @@
 export default {
   name: 'Home',
   mounted() {
+    // Set page title and meta tags
+    document.title = 'LTC Lab - AI Based Software Engineering | Core Java Programming | Machine Learning Courses Azerbaijan';
+    
+    // Update meta description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Learn AI Based Software Engineering, Core Java Programming, Data Structures & Algorithms, System Design, Machine Learning, Deep Learning at LTC Lab Azerbaijan. Expert-led courses with hands-on projects.');
+    }
+    
+    // Update meta keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+      metaKeywords.setAttribute('content', 'AI Based Software Engineering, Core Java Programming, Data Structures Algorithms, System Design, Machine Learning, Deep Learning, Python AI, Java Spring Boot, Microservices, AI Engineering, LTC Lab Azerbaijan, Software Engineering Courses, AI Programming, Backend Development, Full Stack Development');
+    }
     // Initialize AOS animations if available
     if (typeof AOS !== 'undefined') {
       AOS.init({

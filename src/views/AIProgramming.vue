@@ -23,11 +23,11 @@
           <div class="course-icon-large">
             <span class="icon-java">☕</span>
           </div>
-          <h1 class="course-hero-title">Suni intellekt əsaslı proqramlaşdırma</h1>
-          <p class="course-hero-description">
-            Java və Spring Framework əsasında müasir AI həlləri yaratmaq üçün backend development öyrənin. 
-            Microservices, sistem dizaynı və data strukturları ilə güclü AI tətbiqləri hazırlayın.
-          </p>
+          <h1 class="course-hero-title">AI Əsaslı Proqram Mühəndisliyi - Core Java Proqramlaşdırma</h1>
+                      <p class="course-hero-description">
+              Core Java Proqramlaşdırma əsasları, Məlumat Strukturları və Alqoritmlər, Sistem Dizaynını master edin. 
+              Spring Boot, Mikroservislər, AI Agent İnkişafı və müəssisə səviyyəli backend tətbiqləri yaradın.
+            </p>
           <div class="course-meta">
                       <div class="meta-item">
             <span class="meta-label">Müddət:</span>
@@ -97,21 +97,21 @@
                 :class="{ active: selectedSection === 'core-java' }"
                 @click="selectedSection = 'core-java'"
               >
-                Core Java Programming
+                Core Java Proqramlaşdırma
               </button>
               <button 
                 class="section-filter-btn dsa"
                 :class="{ active: selectedSection === 'dsa' }"
                 @click="selectedSection = 'dsa'"
               >
-                DSA
+                Məlumat Strukturları və Alqoritmlər
               </button>
               <button 
                 class="section-filter-btn system-design"
                 :class="{ active: selectedSection === 'system-design' }"
                 @click="selectedSection = 'system-design'"
               >
-                System Design
+                Sistem Dizaynı
               </button>
             </div>
           </div>
@@ -119,7 +119,7 @@
           <!-- Core Java Programming Section -->
           <div v-if="selectedSection === 'all' || selectedSection === 'core-java'" class="section-container">
             <div class="section-header">
-              <h2 class="section-title">Core Java Programming</h2>
+              <h2 class="section-title">Core Java Proqramlaşdırma</h2>
               <span class="section-count">6 Modul</span>
             </div>
             <div class="syllabus-grid">
@@ -144,7 +144,7 @@
           <!-- Data Structures & Algorithms Section -->
           <div v-if="selectedSection === 'all' || selectedSection === 'dsa'" class="section-container">
             <div class="section-header">
-              <h2 class="section-title">Data Structures & Algorithms</h2>
+              <h2 class="section-title">Məlumat Strukturları və Alqoritmlər</h2>
               <span class="section-count">2 Modul</span>
             </div>
             <div class="syllabus-grid">
@@ -169,7 +169,7 @@
           <!-- System Design Section -->
           <div v-if="selectedSection === 'all' || selectedSection === 'system-design'" class="section-container">
             <div class="section-header">
-              <h2 class="section-title">System Design</h2>
+              <h2 class="section-title">Sistem Dizaynı</h2>
               <span class="section-count">3 Modul</span>
             </div>
             <div class="syllabus-grid">
@@ -341,6 +341,22 @@
 <script>
 export default {
   name: 'AIProgramming',
+  mounted() {
+    // Set page title and meta tags
+    document.title = 'AI Based Software Engineering - Core Java Programming | LTC Lab';
+    
+    // Update meta description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Master AI Based Software Engineering with Core Java Programming, Data Structures & Algorithms, System Design. Learn Spring Boot, Microservices, AI Agent Development. 7-month comprehensive course at LTC Lab Azerbaijan.');
+    }
+    
+    // Update meta keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+      metaKeywords.setAttribute('content', 'AI Based Software Engineering, Core Java Programming, Data Structures Algorithms, System Design, Spring Boot, Microservices, AI Agent Development, Backend Development, Java Course Azerbaijan, LTC Lab, Software Engineering Course, Enterprise Applications');
+    }
+  },
   data() {
     return {
       activeTab: 'syllabus',
@@ -492,7 +508,7 @@ export default {
         {
           id: 1,
           month: 1,
-          title: 'Personal Finance Tracker',
+          title: 'Şəxsi Maliyyə İzləyicisi',
           description: 'Java ilə şəxsi maliyyə idarəetmə sistemi. OOP prinsipləri və Collections Framework istifadə edilir.',
           technologies: ['Java', 'Collections', 'File I/O'],
           difficulty: 2
@@ -500,7 +516,7 @@ export default {
         {
           id: 2,
           month: 1,
-          title: 'Library Management System',
+          title: 'Kitabxana İdarəetmə Sistemi',
           description: 'Kitabxana idarəetmə sistemi. Inheritance, Polymorphism və Exception Handling.',
           technologies: ['Java', 'OOP', 'Exception Handling'],
           difficulty: 3
@@ -508,7 +524,7 @@ export default {
         {
           id: 3,
           month: 2,
-          title: 'RESTful Blog API',
+          title: 'RESTful Blog API-si',
           description: 'Spring Boot ilə blog API. CRUD əməliyyatları və JWT authentication.',
           technologies: ['Spring Boot', 'REST API', 'JWT'],
           difficulty: 3
@@ -516,7 +532,7 @@ export default {
         {
           id: 4,
           month: 2,
-          title: 'Task Management API',
+          title: 'Tapşırıq İdarəetmə API-si',
           description: 'Tapşırıq idarəetmə sistemi. Spring Security və role-based access control.',
           technologies: ['Spring Boot', 'Spring Security', 'JPA'],
           difficulty: 4
@@ -524,7 +540,7 @@ export default {
         {
           id: 5,
           month: 3,
-          title: 'E-commerce Database Design',
+          title: 'E-ticarət Verilənlər Bazası Dizaynı',
           description: 'E-ticarət platforması üçün verilənlər bazası dizaynı və optimizasiya.',
           technologies: ['PostgreSQL', 'JPA', 'Database Design'],
           difficulty: 3
@@ -532,7 +548,7 @@ export default {
         {
           id: 6,
           month: 3,
-          title: 'Search Algorithm Implementation',
+          title: 'Axtarış Alqoritmləri İmplementasiyası',
           description: 'Müxtəlif axtarış və sıralama alqoritmlərinin implementasiyası.',
           technologies: ['Java', 'Algorithms', 'Data Structures'],
           difficulty: 4
@@ -540,7 +556,7 @@ export default {
         {
           id: 7,
           month: 4,
-          title: 'Microservices E-commerce',
+          title: 'Mikroservislər E-ticarət Platforması',
           description: 'Microservices arxitekturası ilə e-ticarət platforması.',
           technologies: ['Spring Boot', 'Microservices', 'API Gateway'],
           difficulty: 5
@@ -548,7 +564,7 @@ export default {
         {
           id: 8,
           month: 4,
-          title: 'Event-Driven Chat System',
+          title: 'Hadisə-İdarəli Chat Sistemi',
           description: 'Event-driven arxitektura ilə real-time chat sistemi.',
           technologies: ['Spring Boot', 'WebSocket', 'RabbitMQ'],
           difficulty: 4
@@ -556,7 +572,7 @@ export default {
         {
           id: 9,
           month: 5,
-          title: 'AI-Powered Recommendation Engine',
+          title: 'AI-İdarəli Tövsiyə Mühərriki',
           description: 'Machine Learning API-ləri ilə tövsiyə sistemi.',
           technologies: ['Spring Boot', 'ML APIs', 'Redis'],
           difficulty: 5
@@ -564,7 +580,7 @@ export default {
         {
           id: 10,
           month: 5,
-          title: 'Real-time Analytics Dashboard',
+          title: 'Real-vaxt Analitika Paneli',
           description: 'Real-time data processing və analytics dashboard.',
           technologies: ['Spring Boot', 'Kafka', 'WebSocket'],
           difficulty: 4
@@ -572,7 +588,7 @@ export default {
         {
           id: 11,
           month: 6,
-          title: 'Scalable Social Media API',
+          title: 'Genişlənən Sosial Media API-si',
           description: 'Yüksək yükə davamlı sosial media platforması API-si.',
           technologies: ['Spring Boot', 'Redis', 'PostgreSQL'],
           difficulty: 5
@@ -580,7 +596,7 @@ export default {
         {
           id: 12,
           month: 6,
-          title: 'AI Content Moderation System',
+          title: 'AI Məzmun Moderasiya Sistemi',
           description: 'AI ilə avtomatik məzmun moderasiya sistemi.',
           technologies: ['Spring Boot', 'AI APIs', 'Microservices'],
           difficulty: 5
@@ -588,7 +604,7 @@ export default {
         {
           id: 13,
           month: 7,
-          title: 'Enterprise AI Platform',
+          title: 'Müəssisə AI Platforması',
           description: 'Tam funksional enterprise AI platforması. Müxtəlif AI xidmətlərini birləşdirən kompleks sistem.',
           technologies: ['Spring Boot', 'Microservices', 'Kubernetes', 'AI/ML APIs'],
           difficulty: 5
@@ -596,7 +612,7 @@ export default {
         {
           id: 14,
           month: 7,
-          title: 'AI-Powered DevOps Pipeline',
+          title: 'AI-İdarəli DevOps Boru Xətti',
           description: 'AI ilə avtomatlaşdırılmış CI/CD pipeline və deployment optimization sistemi.',
           technologies: ['Spring Boot', 'Jenkins', 'Docker', 'AI Analytics'],
           difficulty: 5
@@ -605,8 +621,8 @@ export default {
       finalProjects: [
         {
           id: 1,
-          title: 'AI-Powered E-commerce Platform',
-          type: 'Full-Stack Application',
+          title: 'AI-İdarəli E-ticarət Platforması',
+          type: 'Tam-Yığın Tətbiqi',
           description: 'Süni intellekt texnologiyaları ilə təchiz edilmiş tam funksional e-ticarət platforması.',
           features: [
             'Personalized məhsul tövsiyələri',
@@ -620,8 +636,8 @@ export default {
         },
         {
           id: 2,
-          title: 'Smart Healthcare Management System',
-          type: 'Enterprise Application',
+          title: 'Ağıllı Səhiyyə İdarəetmə Sistemi',
+          type: 'Müəssisə Tətbiqi',
           description: 'Tibb müəssisələri üçün AI əsaslı idarəetmə sistemi.',
           features: [
             'Xəstə məlumatlarının AI analizi',
@@ -635,8 +651,8 @@ export default {
         },
         {
           id: 3,
-          title: 'Intelligent Financial Trading Platform',
-          type: 'Real-time System',
+          title: 'Ağıllı Maliyyə Ticarət Platforması',
+          type: 'Real-vaxt Sistemi',
           description: 'AI alqoritmləri ilə avtomatik ticarət platforması.',
           features: [
             'Real-time market data processing',

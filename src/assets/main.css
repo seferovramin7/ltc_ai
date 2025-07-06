@@ -609,6 +609,33 @@ img {
   display: block;
 }
 
+/* Text Selection Styling */
+::selection {
+  background: rgba(203, 35, 96, 0.3);
+  color: #1a202c !important;
+}
+
+::-moz-selection {
+  background: rgba(203, 35, 96, 0.3);
+  color: #1a202c !important;
+}
+
+/* Ensure text selection works on all elements */
+* {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Override for specific elements that shouldn't be selectable */
+button, .btn, .nav-link {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;

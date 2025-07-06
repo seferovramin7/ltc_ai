@@ -1,0 +1,189 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "@id": "https://ltclab.edu.az/#organization",
+      "name": "LTC Lab",
+      "alternateName": "LTC Laboratory",
+      "url": "https://ltclab.edu.az/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://ltclab.edu.az/lts_logo.29f6d82c.svg",
+        "width": 79,
+        "height": 29
+      },
+      "description": "Leading AI and Software Engineering education center in Azerbaijan offering comprehensive courses in AI-based Software Engineering, Core Java Programming, Data Structures & Algorithms, and System Design.",
+      "foundingDate": "2020",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "AZ",
+        "addressLocality": "Baku",
+        "addressRegion": "Baku",
+        "streetAddress": "AGA Business Center"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+994512150666",
+          "contactType": "customer service",
+          "email": "gel@ltclab.edu.az",
+          "availableLanguage": ["az", "en"]
+        }
+      ],
+      "sameAs": [
+        "https://www.ltclab.edu.az/about",
+        "https://www.ltclab.edu.az/elaqe"
+      ]
+    },
+    {
+      "@type": "Course",
+      "@id": "https://ltclab.edu.az/ai-programming",
+      "name": "AI Based Software Engineering",
+      "description": "Comprehensive 7-month course covering Core Java Programming, Data Structures & Algorithms, System Design, Spring Boot, Microservices, and AI integration for enterprise applications.",
+      "provider": {
+        "@id": "https://ltclab.edu.az/#organization"
+      },
+      "url": "https://ltclab.edu.az/ai-programming",
+      "courseMode": "Blended",
+      "educationalLevel": "Intermediate to Advanced",
+      "timeRequired": "P7M",
+      "inLanguage": "az",
+      "coursePrerequisites": "Basic programming knowledge",
+      "teaches": [
+        "Core Java Programming Fundamentals",
+        "Object-Oriented Programming",
+        "Data Structures and Algorithms",
+        "System Design and Architecture", 
+        "Spring Boot and Spring Framework",
+        "Microservices Architecture",
+        "REST API Development",
+        "Database Design and JPA",
+        "AI Agent Development",
+        "Machine Learning Integration",
+        "Enterprise Application Development"
+      ],
+      "syllabusSections": [
+        {
+          "@type": "CourseInstance",
+          "name": "Core Java Programming",
+          "description": "6 modules covering Java fundamentals, OOP, collections, concurrency, and advanced topics",
+          "courseWorkload": "P3M"
+        },
+        {
+          "@type": "CourseInstance", 
+          "name": "Data Structures & Algorithms",
+          "description": "2 modules covering Big-O notation, arrays, trees, dynamic programming, and LeetCode practice",
+          "courseWorkload": "P1M"
+        },
+        {
+          "@type": "CourseInstance",
+          "name": "System Design",
+          "description": "3 modules covering system architecture, AI system design, and large-scale systems",
+          "courseWorkload": "P3M"
+        }
+      ],
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "startDate": "2024-02-01",
+        "endDate": "2024-08-31",
+        "courseMode": "Blended",
+        "location": {
+          "@type": "Place",
+          "name": "AGA Business Center",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "AZ",
+            "addressLocality": "Baku"
+          }
+        }
+      }
+    },
+    {
+      "@type": "Course",
+      "@id": "https://ltclab.edu.az/ai-engineering",
+      "name": "AI Engineering - Python Machine Learning & Deep Learning",
+      "description": "4-month intensive course focusing on Python, Machine Learning, Deep Learning, NLP, Computer Vision, and AI application development using modern frameworks like TensorFlow and Keras.",
+      "provider": {
+        "@id": "https://ltclab.edu.az/#organization"
+      },
+      "url": "https://ltclab.edu.az/ai-engineering",
+      "courseMode": "Blended",
+      "educationalLevel": "Beginner to Advanced",
+      "timeRequired": "P4M",
+      "inLanguage": "az",
+      "coursePrerequisites": "Basic Python knowledge helpful but not required",
+      "teaches": [
+        "Python Programming for AI",
+        "NumPy and Pandas for Data Analysis",
+        "Machine Learning with Scikit-learn",
+        "Deep Learning with TensorFlow and Keras",
+        "Natural Language Processing (NLP)",
+        "Computer Vision and CNNs",
+        "Generative AI and GANs",
+        "Large Language Models (LLMs)",
+        "Prompt Engineering",
+        "AI Agent Development",
+        "MLOps and Model Deployment"
+      ],
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "startDate": "2024-02-01",
+        "endDate": "2024-05-31",
+        "courseMode": "Blended",
+        "location": {
+          "@type": "Place",
+          "name": "AGA Business Center",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "AZ",
+            "addressLocality": "Baku"
+          }
+        }
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ltclab.edu.az/#website",
+      "url": "https://ltclab.edu.az/",
+      "name": "LTC Lab - AI Based Software Engineering Courses",
+      "description": "Master AI-based Software Engineering with comprehensive Core Java programming, Data Structures & Algorithms, and System Design courses in Azerbaijan.",
+      "publisher": {
+        "@id": "https://ltclab.edu.az/#organization"
+      },
+      "inLanguage": "az",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://ltclab.edu.az/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://ltclab.edu.az/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://ltclab.edu.az/"
+        },
+        {
+          "@type": "ListItem", 
+          "position": 2,
+          "name": "AI Programming",
+          "item": "https://ltclab.edu.az/ai-programming"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AI Engineering", 
+          "item": "https://ltclab.edu.az/ai-engineering"
+        }
+      ]
+    }
+  ]
+} 
