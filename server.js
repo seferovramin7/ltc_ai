@@ -8,7 +8,7 @@ const __dirname = dirname(__filename);
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Serve static files from the dist directory
+// Serve static files from the dist davit
 app.use(express.static(join(__dirname, 'dist')));
 
 // Handle SPA routing - send all requests to index.html

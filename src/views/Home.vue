@@ -10,6 +10,7 @@
         </div>
         <nav class="nav">
           <a href="#courses" class="nav-link">Kurslar</a>
+          <router-link to="/portfolio" class="nav-link">Portfoliolar</router-link>
           <a href="https://www.ltclab.edu.az/about" class="nav-link">Haqqında</a>
           <a href="https://www.ltclab.edu.az/elaqe" class="nav-link">Əlaqə</a>
         </nav>
@@ -170,6 +171,7 @@
               <h4>Kurslar</h4>
               <router-link to="/ai-programming">AI Proqramlaşdırma</router-link>
               <router-link to="/ai-engineering">AI Mühəndisliyi</router-link>
+              <router-link to="/portfolio">Tələbə Portfolioları</router-link>
               <a href="#ai-creativity">AI Yaradıcılıq</a>
             </div>
             <div class="link-group">
