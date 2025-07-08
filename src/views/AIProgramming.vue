@@ -1,4 +1,4 @@
-<template>
+c<template>
   <div class="course-page">
     <!-- Header -->
     <header class="header">
