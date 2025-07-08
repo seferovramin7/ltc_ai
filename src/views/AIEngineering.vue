@@ -10,6 +10,7 @@
         </div>
         <nav class="nav">
           <router-link to="/" class="nav-link">Ana Səhifə</router-link>
+          <router-link to="/portfolio" class="nav-link">Portfoliolar</router-link>
           <a href="https://www.ltclab.edu.az/about" class="nav-link">Haqqında</a>
           <a href="https://www.ltclab.edu.az/elaqe" class="nav-link">Əlaqə</a>
         </nav>

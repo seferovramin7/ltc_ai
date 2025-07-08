@@ -80,34 +80,61 @@
     </div>
     
     <!-- Image Popup Modal -->
-    <div v-if="showImagePopup" class="image-popup-overlay" @click="closeImagePopup">
-      <div class="image-popup-container" @click.stop>
-        <div class="image-popup-header">
-          <h3 class="popup-title">{{ project.title }}</h3>
-          <button class="close-button" @click="closeImagePopup">×</button>
-        </div>
-        <div class="image-popup-content">
-          <img :src="currentImage" :alt="`${project.title} - Şəkil ${currentImageIndex + 1}`" class="popup-image">
-          <div class="image-navigation" v-if="project.images.length > 1">
-            <button 
-              class="nav-button prev" 
-              @click="previousImage"
-              :disabled="currentImageIndex === 0"
-            >
-              ‹
+    <Teleport to="body">
+      <div v-if="showImagePopup" class="modal-backdrop" @click="handleBackdropClick">
+        <div class="modal-container" @click.stop>
+          <div class="modal-header">
+            <h3 class="modal-title">{{ project.title }}</h3>
+            <button class="modal-close" @click="closeModal" type="button">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
             </button>
-            <span class="image-counter">{{ currentImageIndex + 1 }} / {{ project.images.length }}</span>
-            <button 
-              class="nav-button next" 
-              @click="nextImage"
-              :disabled="currentImageIndex === project.images.length - 1"
-            >
-              ›
-            </button>
+          </div>
+          
+          <div class="modal-body">
+            <div class="image-container">
+              <img 
+                :src="currentImage" 
+                :alt="`${project.title} - Image ${currentImageIndex + 1}`" 
+                class="modal-image"
+                @load="onImageLoad"
+                @error="onImageError"
+              >
+              
+              <!-- Navigation arrows -->
+              <button 
+                v-if="project.images.length > 1 && currentImageIndex > 0"
+                class="nav-arrow nav-prev" 
+                @click="previousImage"
+                type="button"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="15,18 9,12 15,6"></polyline>
+                </svg>
+              </button>
+              
+              <button 
+                v-if="project.images.length > 1 && currentImageIndex < project.images.length - 1"
+                class="nav-arrow nav-next" 
+                @click="nextImage"
+                type="button"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9,18 15,12 9,6"></polyline>
+                </svg>
+              </button>
+            </div>
+            
+            <!-- Image counter -->
+            <div v-if="project.images.length > 1" class="image-counter">
+              {{ currentImageIndex + 1 }} / {{ project.images.length }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Teleport>
   </div>
 </template>
 
@@ -143,11 +170,18 @@ export default {
       this.currentImage = image
       this.currentImageIndex = index
       this.showImagePopup = true
-      document.body.style.overflow = 'hidden'
+      this.$nextTick(() => {
+        document.body.style.overflow = 'hidden'
+      })
     },
-    closeImagePopup() {
+    closeModal() {
       this.showImagePopup = false
-      document.body.style.overflow = 'auto'
+      document.body.style.overflow = ''
+    },
+    handleBackdropClick(event) {
+      if (event.target === event.currentTarget) {
+        this.closeModal()
+      }
     },
     nextImage() {
       if (this.currentImageIndex < this.project.images.length - 1) {
@@ -161,23 +195,34 @@ export default {
         this.currentImage = this.project.images[this.currentImageIndex]
       }
     },
-    handleImageError(event) {
+    onImageLoad() {
+      // Image loaded successfully
+    },
+    onImageError(event) {
       event.target.src = '/images/project-placeholder.jpg'
+    },
+    handleKeydown(event) {
+      if (!this.showImagePopup) return
+      
+      switch (event.key) {
+        case 'Escape':
+          this.closeModal()
+          break
+        case 'ArrowLeft':
+          this.previousImage()
+          break
+        case 'ArrowRight':
+          this.nextImage()
+          break
+      }
     }
   },
   mounted() {
-    // Handle keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (this.showImagePopup) {
-        if (e.key === 'Escape') {
-          this.closeImagePopup()
-        } else if (e.key === 'ArrowRight') {
-          this.nextImage()
-        } else if (e.key === 'ArrowLeft') {
-          this.previousImage()
-        }
-      }
-    })
+    document.addEventListener('keydown', this.handleKeydown)
+  },
+  beforeUnmount() {
+    document.removeEventListener('keydown', this.handleKeydown)
+    document.body.style.overflow = ''
   }
 }
 </script>
@@ -313,114 +358,156 @@ export default {
   font-size: 1.2rem;
 }
 
-/* Image Popup Styles */
-.image-popup-overlay {
+/* Modal Styles */
+.modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  padding: 2rem;
+  z-index: 9999;
+  padding: 1rem;
+  animation: modalFadeIn 0.2s ease-out;
 }
 
-.image-popup-container {
+.modal-container {
   background: white;
-  border-radius: 12px;
-  max-width: 90vw;
-  max-height: 90vh;
+  border-radius: 16px;
+  max-width: 95vw;
+  max-height: 95vh;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.image-popup-header {
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  animation: modalSlideIn 0.3s ease-out;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
-  background: #f8fafc;
+  flex-direction: column;
 }
 
-.popup-title {
-  font-size: 1.1rem;
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+  flex-shrink: 0;
+}
+
+.modal-title {
+  font-size: 1.125rem;
   font-weight: 600;
-  color: #1a202c;
+  color: #111827;
   margin: 0;
 }
 
-.close-button {
-  background: none;
+.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   border: none;
-  font-size: 1.5rem;
-  color: #64748b;
+  background: none;
+  color: #6b7280;
   cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
-.close-button:hover {
-  background: #e2e8f0;
-  color: #1a202c;
+.modal-close:hover {
+  background: #e5e7eb;
+  color: #374151;
 }
 
-.image-popup-content {
+.modal-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 1.5rem;
-  text-align: center;
+  min-height: 0;
 }
 
-.popup-image {
+.image-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+
+.modal-image {
   max-width: 100%;
-  max-height: 60vh;
+  max-height: 70vh;
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.image-navigation {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.nav-button {
-  background: #cb2360;
-  color: white;
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
   border: none;
-  width: 40px;
-  height: 40px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
   border-radius: 50%;
-  font-size: 1.2rem;
   cursor: pointer;
-  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
 }
 
-.nav-button:hover:not(:disabled) {
-  background: #a91c4d;
-  transform: scale(1.1);
+.nav-arrow:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-50%) scale(1.1);
 }
 
-.nav-button:disabled {
-  background: #e2e8f0;
-  color: #94a3b8;
-  cursor: not-allowed;
+.nav-prev {
+  left: 1rem;
+}
+
+.nav-next {
+  right: 1rem;
 }
 
 .image-counter {
-  font-size: 0.9rem;
-  color: #64748b;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #f3f4f6;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  color: #374151;
   font-weight: 500;
-  min-width: 60px;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .project-description {
@@ -577,12 +664,48 @@ export default {
     height: 60px;
   }
   
-  .image-popup-overlay {
+  .modal-backdrop {
+    padding: 0.5rem;
+  }
+  
+  .modal-container {
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 12px;
+  }
+  
+  .modal-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .modal-title {
+    font-size: 1rem;
+  }
+  
+  .modal-body {
     padding: 1rem;
   }
   
-  .popup-image {
-    max-height: 50vh;
+  .modal-image {
+    max-height: 60vh;
+  }
+  
+  .nav-arrow {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .nav-prev {
+    left: 0.5rem;
+  }
+  
+  .nav-next {
+    right: 0.5rem;
+  }
+  
+  .image-counter {
+    font-size: 0.8rem;
+    padding: 0.375rem 0.75rem;
   }
 }
 </style> 
