@@ -69,7 +69,18 @@
     <!-- Portfolio Content -->
     <section class="portfolio-content">
       <div class="container">
-        <div v-if="!selectedProgram || !selectedGroup" class="selection-required">
+        <div v-if="loading" class="loading-state">
+          <div class="loading-spinner"></div>
+          <p>Portfoliolar yüklənir...</p>
+        </div>
+        
+        <div v-else-if="error" class="error-state">
+          <h3>Xəta baş verdi</h3>
+          <p>{{ error }}</p>
+          <button @click="loadData" class="retry-btn">Yenidən cəhd et</button>
+        </div>
+        
+        <div v-else-if="!selectedProgram || !selectedGroup" class="selection-required">
           <div class="selection-message">
             <h3>Portfolioları görmək üçün proqram və qrup seçin</h3>
             <p>Yuxarıdakı filterlərdən proqram və qrup seçdikdən sonra tələbə portfolioları görünəcək.</p>
@@ -92,10 +103,21 @@
                   class="student-preview-card"
                   @click="goToStudentProfile(student.id)"
                 >
+                  <div class="student-avatar">
+                    <div v-if="shouldShowPlaceholder(student.photo)" class="avatar-placeholder">
+                      <span class="avatar-initials">{{ getInitials(student.name, student.surname) }}</span>
+                    </div>
+                    <img 
+                      v-else
+                      :src="student.photo" 
+                      :alt="`${student.name} ${student.surname}`" 
+                      class="avatar-image"
+                      @error="handleImageError"
+                    >
+                  </div>
                   <div class="student-info">
                     <h4 class="student-name">{{ student.name }} {{ student.surname }}</h4>
                     <p class="student-details">{{ student.age }} yaş • {{ student.profession }}</p>
-                    <p class="project-count">{{ student.projects.length }} layihə</p>
                     <div class="view-portfolio-btn">
                       <span>Portfolioya bax →</span>
                     </div>
@@ -149,7 +171,7 @@
 </template>
 
 <script>
-import { portfolioData, getAllStudents, getAllProjects } from '../data/portfolios.js'
+import PortfolioService from '../data/portfolioService.js'
 import StudentCard from '../components/portfolio/StudentCard.vue'
 
 export default {
@@ -159,11 +181,13 @@ export default {
   },
   data() {
     return {
-      portfolioData,
+      portfolioData: { programs: {} },
       selectedProgram: '',
       selectedGroup: '',
       allStudents: [],
-      allProjects: []
+      allProjects: [],
+      loading: true,
+      error: null
     }
   },
   computed: {
@@ -235,19 +259,52 @@ export default {
       this.selectedGroup = ''
     },
     
-    loadData() {
-      this.allStudents = getAllStudents()
-      this.allProjects = getAllProjects()
+    async loadData() {
+      try {
+        this.loading = true
+        this.error = null
+        
+        // Load portfolio data and students
+        const [portfolioData, allStudents, allProjects] = await Promise.all([
+          PortfolioService.getPortfolioData(),
+          PortfolioService.getAllStudents(),
+          PortfolioService.getAllProjects()
+        ])
+        
+        this.portfolioData = portfolioData
+        this.allStudents = allStudents
+        this.allProjects = allProjects
+        
+      } catch (error) {
+        console.error('Error loading portfolio data:', error)
+        this.error = 'Məlumatlar yüklənərkən xəta baş verdi. Zəhmət olmasa səhifəni yenidən yükləyin.'
+      } finally {
+        this.loading = false
+      }
     },
     
 
     
     goToStudentProfile(studentId) {
       this.$router.push(`/portfolio/${studentId}`)
+    },
+
+    handleImageError(event) {
+      event.target.src = '/images/default-avatar.jpg'
+    },
+
+    getInitials(name, surname) {
+      const firstInitial = name ? name.charAt(0).toUpperCase() : ''
+      const lastInitial = surname ? surname.charAt(0).toUpperCase() : ''
+      return firstInitial + lastInitial || '??'
+    },
+
+    shouldShowPlaceholder(imageUrl) {
+      return !imageUrl || imageUrl === '/images/default-avatar.jpg'
     }
   },
-  mounted() {
-    this.loadData()
+  async mounted() {
+    await this.loadData()
     
     // Set page title and meta tags
     document.title = 'Tələbə Portfolioları - LTC Lab AI Kursları | Bakı'
@@ -378,6 +435,64 @@ export default {
   margin-bottom: 1rem;
 }
 
+/* Loading State */
+.loading-state {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #cb2360;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-state p {
+  color: #4a5568;
+  font-size: 1.1rem;
+}
+
+/* Error State */
+.error-state {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.error-state h3 {
+  font-size: 1.5rem;
+  color: #e53e3e;
+  margin-bottom: 1rem;
+}
+
+.error-state p {
+  color: #4a5568;
+  margin-bottom: 2rem;
+}
+
+.retry-btn {
+  background: #cb2360;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.retry-btn:hover {
+  background: #9f1c54;
+}
+
 .program-section {
   margin-bottom: 4rem;
 }
@@ -430,9 +545,12 @@ export default {
   transition: all 0.3s ease;
   border: 1px solid #e2e8f0;
   cursor: pointer;
-  min-height: 150px;
+  min-height: 180px;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  padding: 2rem;
+  text-align: center;
 }
 
 .student-preview-card:hover {
@@ -441,9 +559,58 @@ export default {
   border-color: #cb2360;
 }
 
+.student-avatar {
+  margin-bottom: 1rem;
+}
+
+.avatar-image, .avatar-placeholder {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid #cb2360;
+  box-shadow: 0 4px 12px rgba(203, 35, 96, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.avatar-image {
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  background: linear-gradient(135deg, #cb2360, #9f1c54);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-placeholder::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+  border-radius: 50%;
+}
+
+.avatar-initials {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  position: relative;
+}
+
+.student-preview-card:hover .avatar-image,
+.student-preview-card:hover .avatar-placeholder {
+  transform: scale(1.1);
+}
+
 .student-preview-card .student-info {
-  padding: 2rem;
-  text-align: center;
   width: 100%;
 }
 
@@ -552,11 +719,17 @@ export default {
   }
   
   .student-preview-card {
-    min-height: 120px;
+    min-height: 160px;
+    padding: 1.5rem;
   }
   
-  .student-preview-card .student-info {
-    padding: 1.5rem;
+  .avatar-image, .avatar-placeholder {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .avatar-initials {
+    font-size: 1.3rem;
   }
   
   .student-preview-card .student-name {
@@ -598,8 +771,18 @@ export default {
     gap: 1.5rem;
   }
   
-  .student-preview-card .student-info {
-    padding: 0.75rem 1rem;
+  .student-preview-card {
+    padding: 1rem;
+    min-height: 140px;
+  }
+  
+  .avatar-image, .avatar-placeholder {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .avatar-initials {
+    font-size: 1.1rem;
   }
   
   .student-preview-card .student-name {
