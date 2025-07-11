@@ -31,6 +31,9 @@
       <div class="container">
         <div class="filters-content">
           <h2 class="section-title">Portfolioları Filtrləyin</h2>
+          <p class="filter-info">
+            💡 Seçimləriniz avtomatik olaraq yadda saxlanılır
+          </p>
           <div class="filters-grid">
             <div class="filter-group">
               <label for="program-filter">Proqram:</label>
@@ -48,7 +51,7 @@
             
             <div class="filter-group" v-if="availableGroups.length > 0">
               <label for="group-filter">Qrup:</label>
-              <select id="group-filter" v-model="selectedGroup">
+              <select id="group-filter" v-model="selectedGroup" @change="onGroupChange">
                 <option value="">Bütün Qruplar</option>
                 <option 
                   v-for="group in availableGroups" 
@@ -101,7 +104,12 @@
         <div v-else>
           <div v-for="(programData, programId) in groupedStudents" :key="programId" class="program-section">
             <div v-for="(groupData, groupId) in programData.groups" :key="groupId" class="group-section">
-              <h3 class="group-title">{{ groupData.name }} - {{ programData.name }}</h3>
+              <h3 class="group-title">
+                {{ groupData.name }} - {{ programData.name }}
+                <span class="image-count" v-if="studentsWithImagesCount > 0">
+                  📸 {{ studentsWithImagesCount }}/{{ filteredStudents.length }}
+                </span>
+              </h3>
               <div class="students-grid">
                 <div 
                   v-for="student in groupData.students"
@@ -122,6 +130,9 @@
                       loading="lazy"
                       decoding="async"
                     >
+                    <div v-if="!shouldShowPlaceholder(student.photo)" class="image-badge">
+                      📸
+                    </div>
                   </div>
                   <div class="student-info">
                     <h4 class="student-name">{{ student.name }} {{ student.surname }}</h4>
@@ -197,7 +208,8 @@ export default {
       allStudents: [],
       allProjects: [],
       loading: true,
-      error: null
+      error: null,
+      storageKey: 'ltc_portfolio_filters'
     }
   },
   computed: {
@@ -221,7 +233,7 @@ export default {
         return []
       }
       
-      return this.allStudents.filter(student => {
+      const filtered = this.allStudents.filter(student => {
         // Program filter (required)
         if (student.programId !== this.selectedProgram) {
           return false
@@ -233,6 +245,21 @@ export default {
         }
         
         return true
+      })
+      
+      // Sort students: those with images first, then by name
+      return filtered.sort((a, b) => {
+        const aHasImage = a.photo && a.photo !== '/images/default-avatar.jpg'
+        const bHasImage = b.photo && b.photo !== '/images/default-avatar.jpg'
+        
+        // If one has image and other doesn't, prioritize the one with image
+        if (aHasImage && !bHasImage) return -1
+        if (!aHasImage && bHasImage) return 1
+        
+        // If both have images or both don't, sort by name
+        const aName = `${a.name} ${a.surname}`.toLowerCase()
+        const bName = `${b.name} ${b.surname}`.toLowerCase()
+        return aName.localeCompare(bName)
       })
     },
     
@@ -262,11 +289,83 @@ export default {
       })
       
       return grouped
+    },
+
+    // Count students with images
+    studentsWithImagesCount() {
+      return this.filteredStudents.filter(student => 
+        !this.shouldShowPlaceholder(student.photo)
+      ).length
     }
   },
   methods: {
+    // Save filter preferences to localStorage
+    saveFilterPreferences() {
+      try {
+        const preferences = {
+          selectedProgram: this.selectedProgram,
+          selectedGroup: this.selectedGroup,
+          timestamp: Date.now()
+        }
+        localStorage.setItem(this.storageKey, JSON.stringify(preferences))
+      } catch (error) {
+        console.warn('Failed to save filter preferences:', error)
+      }
+    },
+
+    // Load filter preferences from localStorage
+    loadFilterPreferences() {
+      try {
+        const stored = localStorage.getItem(this.storageKey)
+        if (stored) {
+          const preferences = JSON.parse(stored)
+          // Check if preferences are not too old (24 hours)
+          const maxAge = 24 * 60 * 60 * 1000 // 24 hours in milliseconds
+          if (Date.now() - preferences.timestamp < maxAge) {
+            return preferences
+          }
+        }
+      } catch (error) {
+        console.warn('Failed to load filter preferences:', error)
+      }
+      return null
+    },
+
+    // Apply saved preferences if available
+    applySavedPreferences() {
+      const preferences = this.loadFilterPreferences()
+      if (preferences) {
+        // Check if the saved program exists in current data
+        if (this.portfolioData.programs[preferences.selectedProgram]) {
+          this.selectedProgram = preferences.selectedProgram
+          
+          // Check if the saved group exists in the selected program
+          const program = this.portfolioData.programs[preferences.selectedProgram]
+          if (program.groups && program.groups[preferences.selectedGroup]) {
+            this.selectedGroup = preferences.selectedGroup
+          }
+        }
+      }
+    },
+
     onProgramChange() {
       this.selectedGroup = ''
+      this.saveFilterPreferences()
+    },
+
+    onGroupChange() {
+      this.saveFilterPreferences()
+    },
+
+    // Clear saved preferences
+    clearFilterPreferences() {
+      try {
+        localStorage.removeItem(this.storageKey)
+        this.selectedProgram = ''
+        this.selectedGroup = ''
+      } catch (error) {
+        console.warn('Failed to clear filter preferences:', error)
+      }
     },
     
     async loadData() {
@@ -290,6 +389,9 @@ export default {
         this.portfolioData = portfolioData
         this.allStudents = allStudents
         this.allProjects = allProjects
+        
+        // Apply saved filter preferences after data is loaded
+        this.applySavedPreferences();
         
         // Optimize image loading
         await ImageService.optimizePortfolioImages(allStudents);
@@ -406,8 +508,16 @@ export default {
   font-size: 2.5rem;
   font-weight: 700;
   color: #1a202c;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   text-align: center;
+}
+
+.filter-info {
+  text-align: center;
+  color: #10b981;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
 }
 
 .filters-grid {
@@ -617,6 +727,21 @@ export default {
   background: linear-gradient(135deg, #cb2360, #9f1c54);
   color: white;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.image-count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .students-grid {
@@ -649,6 +774,7 @@ export default {
 
 .student-avatar {
   margin-bottom: 1rem;
+  position: relative;
 }
 
 .avatar-image, .avatar-placeholder {
@@ -696,6 +822,24 @@ export default {
 .student-preview-card:hover .avatar-image,
 .student-preview-card:hover .avatar-placeholder {
   transform: scale(1.1);
+}
+
+.image-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  border: 2px solid white;
+  z-index: 2;
 }
 
 .student-preview-card .student-info {
