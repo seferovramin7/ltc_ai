@@ -31,9 +31,6 @@
       <div class="container">
         <div class="filters-content">
           <h2 class="section-title">Portfolioları Filtrləyin</h2>
-          <p class="filter-info">
-            💡 Seçimləriniz avtomatik olaraq yadda saxlanılır
-          </p>
           <div class="filters-grid">
             <div class="filter-group">
               <label for="program-filter">Proqram:</label>
@@ -104,12 +101,7 @@
         <div v-else>
           <div v-for="(programData, programId) in groupedStudents" :key="programId" class="program-section">
             <div v-for="(groupData, groupId) in programData.groups" :key="groupId" class="group-section">
-              <h3 class="group-title">
-                {{ groupData.name }} - {{ programData.name }}
-                <span class="image-count" v-if="studentsWithImagesCount > 0">
-                  📸 {{ studentsWithImagesCount }}/{{ filteredStudents.length }}
-                </span>
-              </h3>
+              <h3 class="group-title">{{ groupData.name }} - {{ programData.name }}</h3>
               <div class="students-grid">
                 <div 
                   v-for="student in groupData.students"
@@ -130,9 +122,6 @@
                       loading="lazy"
                       decoding="async"
                     >
-                    <div v-if="!shouldShowPlaceholder(student.photo)" class="image-badge">
-                      📸
-                    </div>
                   </div>
                   <div class="student-info">
                     <h4 class="student-name">{{ student.name }} {{ student.surname }}</h4>
@@ -289,13 +278,6 @@ export default {
       })
       
       return grouped
-    },
-
-    // Count students with images
-    studentsWithImagesCount() {
-      return this.filteredStudents.filter(student => 
-        !this.shouldShowPlaceholder(student.photo)
-      ).length
     }
   },
   methods: {
@@ -508,16 +490,8 @@ export default {
   font-size: 2.5rem;
   font-weight: 700;
   color: #1a202c;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   text-align: center;
-}
-
-.filter-info {
-  text-align: center;
-  color: #10b981;
-  font-size: 0.9rem;
-  margin-bottom: 2rem;
-  font-weight: 500;
 }
 
 .filters-grid {
@@ -727,21 +701,6 @@ export default {
   background: linear-gradient(135deg, #cb2360, #9f1c54);
   color: white;
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.image-count {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.3rem 0.8rem;
-  border-radius: 15px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .students-grid {
@@ -824,23 +783,7 @@ export default {
   transform: scale(1.1);
 }
 
-.image-badge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-  border: 2px solid white;
-  z-index: 2;
-}
+
 
 .student-preview-card .student-info {
   width: 100%;
