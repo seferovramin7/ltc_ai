@@ -72,12 +72,18 @@
         <div v-if="loading" class="loading-state">
           <div class="loading-spinner"></div>
           <p>Portfoliolar yüklənir...</p>
+          <div class="loading-progress">
+            <div class="progress-bar"></div>
+          </div>
         </div>
         
         <div v-else-if="error" class="error-state">
           <h3>Xəta baş verdi</h3>
           <p>{{ error }}</p>
-          <button @click="loadData" class="retry-btn">Yenidən cəhd et</button>
+          <div class="error-actions">
+            <button @click="loadData" class="retry-btn">Yenidən cəhd et</button>
+            <button @click="refreshData" class="refresh-btn">Məlumatları yenilə</button>
+          </div>
         </div>
         
         <div v-else-if="!selectedProgram || !selectedGroup" class="selection-required">
@@ -113,6 +119,8 @@
                       :alt="`${student.name} ${student.surname}`" 
                       class="avatar-image"
                       @error="handleImageError"
+                      loading="lazy"
+                      decoding="async"
                     >
                   </div>
                   <div class="student-info">
@@ -173,6 +181,8 @@
 <script>
 import PortfolioService from '../data/portfolioService.js'
 import StudentCard from '../components/portfolio/StudentCard.vue'
+import ImageService from '../services/imageService.js'
+import PerformanceService from '../services/performanceService.js'
 
 export default {
   name: 'Portfolio',
@@ -264,7 +274,13 @@ export default {
         this.loading = true
         this.error = null
         
-        // Load portfolio data and students
+        // Start performance timing
+        PerformanceService.startTiming('portfolioDataLoad');
+        
+        // Try to preload data for better performance
+        await PortfolioService.preloadData();
+        
+        // Load portfolio data and students with optimized parallel loading
         const [portfolioData, allStudents, allProjects] = await Promise.all([
           PortfolioService.getPortfolioData(),
           PortfolioService.getAllStudents(),
@@ -275,12 +291,30 @@ export default {
         this.allStudents = allStudents
         this.allProjects = allProjects
         
+        // Optimize image loading
+        await ImageService.optimizePortfolioImages(allStudents);
+        
+        // End performance timing
+        PerformanceService.endTiming('portfolioDataLoad');
+        
+        // Log performance and cache stats for debugging
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Cache stats:', PortfolioService.getCacheStats());
+          console.log('Performance report:', PerformanceService.getPerformanceReport());
+        }
+        
       } catch (error) {
         console.error('Error loading portfolio data:', error)
         this.error = 'Məlumatlar yüklənərkən xəta baş verdi. Zəhmət olmasa səhifəni yenidən yükləyin.'
       } finally {
         this.loading = false
       }
+    },
+
+    // Force refresh data (clears cache)
+    async refreshData() {
+      PortfolioService.clearCache();
+      await this.loadData();
     },
     
 
@@ -290,7 +324,7 @@ export default {
     },
 
     handleImageError(event) {
-      event.target.src = '/images/default-avatar.jpg'
+      ImageService.handleImageError(event);
     },
 
     getInitials(name, surname) {
@@ -304,6 +338,9 @@ export default {
     }
   },
   async mounted() {
+    // Initialize performance monitoring
+    PerformanceService.init();
+    
     await this.loadData()
     
     // Set page title and meta tags
@@ -320,6 +357,11 @@ export default {
     if (metaKeywords) {
       metaKeywords.setAttribute('content', 'tələbə portfolioları, AI layihələri, suni intellekt layihələri, student projects, machine learning projects, Java projects, Python AI projects, LTC Lab students, AI programming portfolio')
     }
+  },
+  
+  beforeUnmount() {
+    // Clean up performance observers
+    PerformanceService.disconnect();
   }
 }
 </script>
@@ -459,6 +501,30 @@ export default {
 .loading-state p {
   color: #4a5568;
   font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.loading-progress {
+  width: 200px;
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #cb2360, #9f1c54);
+  border-radius: 2px;
+  animation: loading-progress 2s ease-in-out infinite;
+}
+
+@keyframes loading-progress {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
 }
 
 /* Error State */
@@ -478,19 +544,41 @@ export default {
   margin-bottom: 2rem;
 }
 
-.retry-btn {
-  background: #cb2360;
-  color: white;
+.error-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.retry-btn, .refresh-btn {
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.retry-btn {
+  background: #cb2360;
+  color: white;
 }
 
 .retry-btn:hover {
   background: #9f1c54;
+  transform: translateY(-1px);
+}
+
+.refresh-btn {
+  background: #4299e1;
+  color: white;
+}
+
+.refresh-btn:hover {
+  background: #3182ce;
+  transform: translateY(-1px);
 }
 
 .program-section {

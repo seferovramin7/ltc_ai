@@ -32,17 +32,18 @@
                 :alt="`${student.name} ${student.surname}`" 
                 class="profile-picture"
                 @error="handleImageError"
+                loading="lazy"
               >
             </div>
             <div class="profile-info">
-              <h1 class="hero-title">{{ student.name }} {{ student.surname }}</h1>
+          <h1 class="hero-title">{{ student.name }} {{ student.surname }}</h1>
               <p class="student-details">{{ student.age }} yaş • {{ student.profession }}</p>
               <div class="student-badges">
                 <span class="program-badge">{{ student.programName }}</span>
                 <span class="group-badge">{{ student.groupName }}</span>
               </div>
-            </div>
-          </div>
+        </div>
+      </div>
           <div class="back-navigation">
             <button @click="goBack" class="back-btn">
               ← Portfoliolara qayıt
@@ -93,7 +94,7 @@
           <p>{{ error ? 'Zəhmət olmasa yenidən cəhd edin.' : 'Axtardığınız tələbə portfoliosu mövcud deyil.' }}</p>
           <div class="error-actions">
             <button v-if="error" @click="loadStudent" class="retry-btn">Yenidən cəhd et</button>
-            <router-link to="/portfolio" class="back-link">Portfoliolara qayıt</router-link>
+          <router-link to="/portfolio" class="back-link">Portfoliolara qayıt</router-link>
           </div>
         </div>
       </div>
@@ -163,10 +164,10 @@ export default {
         
         const studentId = parseInt(this.$route.params.id)
         this.student = await PortfolioService.getStudentById(studentId)
-        
-        if (this.student) {
-          // Set page title
-          document.title = `${this.student.name} ${this.student.surname} - Portfolio | LTC Lab`
+      
+      if (this.student) {
+        // Set page title
+        document.title = `${this.student.name} ${this.student.surname} - Portfolio | LTC Lab`
         } else {
           this.error = 'Tələbə tapılmadı'
         }
@@ -222,6 +223,9 @@ export default {
   border-bottom: 1px solid #e2e8f0;
   position: relative;
   overflow: hidden;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
 }
 
 .hero::before {
@@ -241,37 +245,47 @@ export default {
   margin: 0 auto;
   position: relative;
   z-index: 2;
+  padding: 0 2rem;
+  width: 100%;
 }
 
 .profile-section {
   display: flex;
   align-items: center;
-  gap: 4rem;
+  gap: 3rem;
   margin-bottom: 3rem;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.8);
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .profile-picture-container {
   flex-shrink: 0;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile-picture, .profile-placeholder {
-  width: 160px;
-  height: 160px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  border: 4px solid #cb2360;
+  border: 5px solid #cb2360;
   box-shadow: 0 12px 40px rgba(203, 35, 96, 0.25);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
 }
 
 .profile-picture {
   object-fit: cover;
+  object-position: center;
 }
 
 .profile-placeholder {
@@ -311,25 +325,29 @@ export default {
 .profile-info {
   flex: 1;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 180px;
 }
 
 .hero-title {
-  font-size: 3rem;
+  font-size: 2.8rem;
   font-weight: 800;
-  margin: 0 0 1.2rem 0;
+  margin: 0 0 1rem 0;
   color: #1a202c;
   background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  line-height: 1.1;
+  line-height: 1.2;
   letter-spacing: -0.02em;
 }
 
 .student-details {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: #4a5568;
-  margin: 0 0 2rem 0;
+  margin: 0 0 1.5rem 0;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -338,12 +356,12 @@ export default {
 
 .student-details::before {
   content: '👨‍💻';
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .student-badges {
   display: flex;
-  gap: 1.2rem;
+  gap: 1rem;
   flex-wrap: wrap;
   align-items: center;
 }
@@ -402,13 +420,11 @@ export default {
 }
 
 .back-navigation {
-  position: absolute;
-  top: 0;
-  left: 0;
+  margin-bottom: 2rem;
 }
 
 .back-btn {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   color: #4a5568;
   border: 2px solid #e2e8f0;
   padding: 0.75rem 1.5rem;
@@ -418,6 +434,9 @@ export default {
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .back-btn:hover {
@@ -672,19 +691,27 @@ export default {
     padding: 80px 0 40px;
   }
   
+  .hero-content {
+    padding: 0 1rem;
+  }
+  
   .profile-section {
     flex-direction: column;
     text-align: center;
     gap: 2rem;
+    padding: 2rem 1.5rem;
+    margin: 0 1rem 3rem 1rem;
   }
   
   .profile-info {
     text-align: center;
+    min-height: auto;
   }
   
   .profile-picture, .profile-placeholder {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
+    border-width: 4px;
   }
   
   .initials {
@@ -692,11 +719,12 @@ export default {
   }
   
   .hero-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
   
   .student-details {
     font-size: 1.1rem;
+    justify-content: center;
   }
   
   .student-badges {
@@ -704,9 +732,8 @@ export default {
   }
   
   .back-navigation {
-    position: static;
-    margin-top: 1rem;
     text-align: center;
+    margin-bottom: 1.5rem;
   }
   
   .student-header {
@@ -748,17 +775,28 @@ export default {
     padding: 60px 0 30px;
   }
   
+  .hero-content {
+    padding: 0 0.5rem;
+  }
+  
+  .profile-section {
+    padding: 1.5rem 1rem;
+    margin: 0 0.5rem 2rem 0.5rem;
+    gap: 1.5rem;
+  }
+  
   .profile-picture, .profile-placeholder {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
+    border-width: 3px;
   }
   
   .initials {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
   
   .hero-title {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
   }
   
   .student-details {
@@ -768,13 +806,13 @@ export default {
   .student-badges {
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
   }
   
   .program-badge,
   .group-badge {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
   }
   
   .back-btn {

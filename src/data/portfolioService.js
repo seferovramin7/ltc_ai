@@ -1,20 +1,10 @@
 import ApiService from '../services/apiService.js';
+import CacheService from '../services/cacheService.js';
 
 class PortfolioService {
   constructor() {
     this.apiService = ApiService;
-    this.cachedData = {
-      programs: null,
-      students: null,
-      lastFetch: null
-    };
-    this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
-  }
-
-  // Check if cache is still valid
-  isCacheValid() {
-    return this.cachedData.lastFetch && 
-           (Date.now() - this.cachedData.lastFetch) < this.cacheTimeout;
+    this.cache = CacheService;
   }
 
   // Get all programs
@@ -58,15 +48,8 @@ class PortfolioService {
 
   // Get all students (cached for performance)
   async getAllStudents() {
-    if (this.isCacheValid() && this.cachedData.students) {
-      return this.cachedData.students;
-    }
-
     try {
-      const students = await this.apiService.getAllStudents();
-      this.cachedData.students = students;
-      this.cachedData.lastFetch = Date.now();
-      return students;
+      return await this.apiService.getAllStudents();
     } catch (error) {
       console.error('Error fetching students:', error);
       return [];
@@ -139,11 +122,17 @@ class PortfolioService {
 
   // Clear cache (useful for forcing refresh)
   clearCache() {
-    this.cachedData = {
-      programs: null,
-      students: null,
-      lastFetch: null
-    };
+    this.apiService.clearCache();
+  }
+
+  // Preload data for better performance
+  async preloadData() {
+    return this.apiService.preloadData();
+  }
+
+  // Get cache statistics
+  getCacheStats() {
+    return this.cache.getStats();
   }
 
   // Get portfolio data in the old format for backward compatibility

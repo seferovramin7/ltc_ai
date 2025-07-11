@@ -1,11 +1,28 @@
+import CacheService from './cacheService.js';
+
 const API_BASE_URL = 'https://api.ai.ltclab.edu.az/api/public';
 
 class ApiService {
   constructor() {
     this.baseURL = API_BASE_URL;
+    this.cache = CacheService;
+    this.pendingRequests = new Map(); // Prevent duplicate concurrent requests
   }
 
   async makeRequest(endpoint, options = {}) {
+    const cacheKey = this.cache.generateKey('api', { endpoint, options: JSON.stringify(options) });
+    
+    // Check cache first
+    const cachedData = this.cache.get(cacheKey);
+    if (cachedData) {
+      return cachedData;
+    }
+
+    // Prevent duplicate concurrent requests
+    if (this.pendingRequests.has(cacheKey)) {
+      return this.pendingRequests.get(cacheKey);
+    }
+
     const url = `${this.baseURL}${endpoint}`;
     
     const defaultOptions = {
@@ -17,18 +34,33 @@ class ApiService {
       ...options
     };
 
-    try {
-      const response = await fetch(url, defaultOptions);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    const requestPromise = (async () => {
+      try {
+        const response = await fetch(url, defaultOptions);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Cache successful responses
+        this.cache.set(cacheKey, data);
+        
+        return data;
+      } catch (error) {
+        console.error(`API request failed for ${endpoint}:`, error);
+        throw error;
+      } finally {
+        // Remove from pending requests
+        this.pendingRequests.delete(cacheKey);
       }
-      
-      return await response.json();
-    } catch (error) {
-      console.error(`API request failed for ${endpoint}:`, error);
-      throw error;
-    }
+    })();
+
+    // Store the promise to prevent duplicate requests
+    this.pendingRequests.set(cacheKey, requestPromise);
+    
+    return requestPromise;
   }
 
   // Get all programs with their groups
@@ -173,21 +205,63 @@ class ApiService {
   parseTechStack(techStack) {
     if (!techStack) return [];
     
-    return techStack.split(',').map(tech => tech.trim());
+    // Handle both comma and pipe separators
+    const separators = /[,|]/;
+    return techStack.split(separators).map(tech => tech.trim()).filter(tech => tech);
+  }
+
+  // Clear specific cache entries
+  clearCache(type = null) {
+    if (type) {
+      // Clear specific type of cache
+      const keys = Array.from(this.cache.memoryCache.keys());
+      keys.forEach(key => {
+        if (key.startsWith(type)) {
+          this.cache.clear(key);
+        }
+      });
+    } else {
+      // Clear all cache
+      this.cache.clearAll();
+    }
+  }
+
+  // Preload critical data
+  async preloadData() {
+    try {
+      // Preload programs and students data
+      const programsPromise = this.getPrograms();
+      const studentsPromise = this.getAllStudents();
+      
+      await Promise.all([programsPromise, studentsPromise]);
+      
+      console.log('Data preloaded successfully');
+    } catch (error) {
+      console.error('Data preload failed:', error);
+    }
   }
 
   // Method to get all students in the format expected by components
   async getAllStudents() {
+    const cacheKey = this.cache.generateKey('allStudents');
+    const cachedStudents = this.cache.get(cacheKey);
+    
+    if (cachedStudents) {
+      return cachedStudents;
+    }
+
     const programs = await this.getPrograms();
     const allStudents = [];
     
-    for (const program of programs) {
+    // Use Promise.all for concurrent requests to improve performance
+    const programPromises = programs.map(async (program) => {
       const programGroups = await this.getProgramGroups(program.id);
       
+      const groupStudents = [];
       for (const group of programGroups) {
         if (group.students) {
           for (const student of group.students) {
-            allStudents.push({
+            groupStudents.push({
               id: student.id,
               name: student.name.split(' ')[0] || student.name,
               surname: student.name.split(' ').slice(1).join(' ') || '',
@@ -205,13 +279,21 @@ class ApiService {
                 techStack: this.parseTechStack(project.techStack),
                 images: project.images || [],
                 githubUrl: project.githubLink,
+                githubLink: project.githubLink, // Support both field names
                 numberOfMonths: project.numberOfMonths || 1
               })) : []
             });
           }
         }
       }
-    }
+      return groupStudents;
+    });
+
+    const studentArrays = await Promise.all(programPromises);
+    studentArrays.forEach(students => allStudents.push(...students));
+    
+    // Cache the result
+    this.cache.set(cacheKey, allStudents);
     
     return allStudents;
   }

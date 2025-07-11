@@ -5,8 +5,8 @@
         <div class="project-meta">
           <h4 class="project-title">{{ project.title }}</h4>
           <div class="project-badges">
-            <span class="project-month" v-if="project.month">{{ project.month }}. Ay</span>
-            <span class="project-type">{{ getProjectTypeLabel(project.type) }}</span>
+            <span class="project-month" v-if="project.numberOfMonths">{{ project.numberOfMonths }}. Ay</span>
+            <span class="project-type" v-if="project.type">{{ getProjectTypeLabel(project.type) }}</span>
           </div>
         </div>
         
@@ -20,7 +20,13 @@
               class="image-thumbnail"
               @click="openImagePopup(image, index)"
             >
-              <img :src="image" :alt="`${project.title} - Şəkil ${index + 1}`" @error="handleImageError">
+              <img 
+                :src="image" 
+                :alt="`${project.title} - Şəkil ${index + 1}`" 
+                @error="handleImageError"
+                loading="lazy"
+                decoding="async"
+              >
               <div class="image-overlay">
                 <span class="zoom-icon">🔍</span>
               </div>
@@ -37,22 +43,22 @@
           </ul>
         </div>
         
-        <div class="project-tech" v-if="project.techStack && project.techStack.length > 0">
+        <div class="project-tech" v-if="project.techStack">
           <div class="tech-tags">
             <span 
-              v-for="tech in project.techStack" 
+              v-for="tech in getTechStackArray(project.techStack)" 
               :key="tech" 
               class="tech-tag"
             >
-              {{ tech }}
+              {{ tech.trim() }}
             </span>
           </div>
         </div>
         
         <div class="project-links">
           <a 
-            v-if="project.githubUrl" 
-            :href="project.githubUrl" 
+            v-if="project.githubUrl || project.githubLink" 
+            :href="project.githubUrl || project.githubLink" 
             target="_blank" 
             rel="noopener noreferrer"
             class="project-link github"
@@ -61,8 +67,8 @@
             GitHub
           </a>
           <a 
-            v-if="project.liveUrl" 
-            :href="project.liveUrl" 
+            v-if="project.liveUrl || project.demoUrl" 
+            :href="project.liveUrl || project.demoUrl" 
             target="_blank" 
             rel="noopener noreferrer"
             class="project-link live"
@@ -157,6 +163,16 @@ export default {
   methods: {
     getProjectTypeLabel(type) {
       return type === 'monthly' ? 'Aylıq Layihə' : 'Final Layihəsi'
+    },
+    getTechStackArray(techStack) {
+      if (Array.isArray(techStack)) {
+        return techStack
+      }
+      if (typeof techStack === 'string') {
+        // Split by common separators: |, •, comma, or line breaks
+        return techStack.split(/[|•,\n]/).filter(tech => tech.trim())
+      }
+      return []
     },
     formatDate(dateString) {
       const date = new Date(dateString)
@@ -273,13 +289,22 @@ export default {
 }
 
 .project-month {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(135deg, #10b981, #059669);
   color: white;
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.project-month::before {
+  content: '📅';
+  font-size: 0.7rem;
 }
 
 .project-type {

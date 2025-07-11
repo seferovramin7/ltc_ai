@@ -20,8 +20,8 @@ async function initializePortfolioData() {
     isInitialized = true;
   } catch (error) {
     console.error('Failed to initialize portfolio data:', error);
-  }
-}
+                }
+              }
 
 // Helper functions that now use the API service
 export async function getAllStudents() {
