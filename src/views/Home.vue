@@ -75,7 +75,7 @@
             </div>
                          <div class="course-duration">
                <span class="duration">7 ay</span>
-               <span class="level">Orta-İrəli səviyyə</span>
+               <span class="level">Başlanğıc-İrəli səviyyə</span>
              </div>
             <router-link to="/ai-programming" class="course-button-link">
               <button class="course-button">Ətraflı Məlumat</button>
