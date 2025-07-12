@@ -87,17 +87,17 @@
             <div class="course-icon">
               <span class="icon-python" role="img" aria-label="Python Programming">🐍</span>
             </div>
-            <h3 class="course-title" itemprop="name">Suni intellekt Mühəndisliyi - Python Maşın Öyrənməsi və Dərin Öyrənmə</h3>
+            <h3 class="course-title" itemprop="name">Suni intellekt Mühəndisliyi - Modern LLM və Agent Sistemləri</h3>
             <p class="course-description" itemprop="description">
-              Python Proqramlaşdırma, NumPy, Pandas, Maşın Öyrənməsi, Dərin Öyrənmə, NLP, Kompüter Görmə öyrənin. 
-              TensorFlow, Keras, LLM-lər və MLOps texnologiyalarını master edin.
+              Python, PyTorch, Machine Learning, Neural Networks, LLM-lər, Vector Database, ChromaDB, LangChain, RAG sistemləri öyrənin. 
+              Multi-Agent Workflows, Docker, AWS deployment və Production AI sistemləri master edin.
             </p>
             <div class="course-features">
-              <span class="feature">Python & ML</span>
-              <span class="feature">TensorFlow</span>
-              <span class="feature">Data Science</span>
-              <span class="feature">NLP</span>
-              <span class="feature">MLOps</span>
+              <span class="feature">Python & PyTorch</span>
+              <span class="feature">LLM & RAG</span>
+              <span class="feature">Vector DB</span>
+              <span class="feature">LangChain</span>
+              <span class="feature">AI Agents</span>
             </div>
             <div class="course-duration">
               <span class="duration">4 ay</span>

@@ -54,10 +54,6 @@ c<template>
               <span class="meta-label">Səviyyə:</span>
               <span class="meta-value">Orta-İrəli</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Format:</span>
-              <span class="meta-value">Hibrid</span>
-            </div>
           </div>
         </div>
       </div>

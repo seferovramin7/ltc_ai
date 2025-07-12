@@ -40,10 +40,10 @@
           <div class="course-icon-large">
             <span class="icon-python">🐍</span>
           </div>
-          <h1 class="course-hero-title">AI Mühəndisliyi - Python Maşın Öyrənməsi və Dərin Öyrənmə</h1>
+          <h1 class="course-hero-title">AI Mühəndisliyi - Modern LLM və Agent Sistemləri</h1>
           <p class="course-hero-description">
-            Python Proqramlaşdırma, Maşın Öyrənməsi, Dərin Öyrənmə, NLP, Kompüter Görmə master edin. 
-            TensorFlow, Keras, LLM-lər, MLOps və AI tətbiq inkişafını öyrənin.
+            Modern AI Engineer olmaq üçün lazım olan hər şey: Python, Machine Learning, LLM-lər, RAG sistemləri, 
+            Vector Database-lər, LangChain, Multi-Agent Workflows, Docker, AWS və Production AI deployment.
           </p>
           <div class="course-meta">
             <div class="meta-item">
@@ -53,10 +53,6 @@
             <div class="meta-item">
               <span class="meta-label">Səviyyə:</span>
               <span class="meta-value">Başlanğıc-Orta</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">Format:</span>
-              <span class="meta-value">Hibrid</span>
             </div>
           </div>
         </div>
@@ -130,7 +126,7 @@
                 Hamısı
               </button>
               <button 
-                v-for="month in 4" 
+                v-for="month in 3" 
                 :key="month"
                 class="filter-btn"
                 :class="{ active: selectedMonth === month }"
@@ -160,6 +156,19 @@
                 >
                   {{ tech }}
                 </span>
+              </div>
+              <div class="project-markets" v-if="project.markets">
+                <span class="markets-label">Bazar tələbatı:</span>
+                <div class="markets-tags">
+                  <span 
+                    v-for="market in project.markets" 
+                    :key="market"
+                    class="market-tag"
+                    :class="getMarketClass(market)"
+                  >
+                    {{ formatMarketName(market) }}
+                  </span>
+                </div>
               </div>
               <div class="project-difficulty">
                 <span class="difficulty-label">Çətinlik:</span>
@@ -211,6 +220,19 @@
                   >
                     {{ tech }}
                   </span>
+                </div>
+                <div class="final-project-markets" v-if="project.markets">
+                  <span class="markets-label">Bazar tələbatı:</span>
+                  <div class="markets-tags">
+                    <span 
+                      v-for="market in project.markets" 
+                      :key="market"
+                      class="market-tag"
+                      :class="getMarketClass(market)"
+                    >
+                      {{ formatMarketName(market) }}
+                    </span>
+                  </div>
                 </div>
                 <div class="project-duration">
                   <span class="duration-label">Müddət:</span>
@@ -268,18 +290,18 @@ export default {
   name: 'AIEngineering',
   mounted() {
     // Set page title and meta tags
-    document.title = 'AI Engineering - Python Machine Learning & Deep Learning | LTC Lab';
+    document.title = 'AI Engineering - Modern LLM & Agent Systems | LTC Lab';
     
     // Update meta description
     let metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Master AI Engineering with Python, Machine Learning, Deep Learning, NLP, Computer Vision. Learn TensorFlow, Keras, LLMs, MLOps. 4-month comprehensive AI course at LTC Lab Azerbaijan.');
+      metaDescription.setAttribute('content', 'Master modern AI Engineering: LLMs, RAG systems, Vector Databases, LangChain, Multi-Agent Workflows, Docker, AWS deployment. 32-lesson comprehensive AI Engineering course at LTC Lab Azerbaijan.');
     }
     
     // Update meta keywords
     let metaKeywords = document.querySelector('meta[name="keywords"]');
     if (metaKeywords) {
-      metaKeywords.setAttribute('content', 'AI Engineering, Python Machine Learning, Deep Learning, NLP, Computer Vision, TensorFlow, Keras, Neural Networks, MLOps, Data Science, AI Course Azerbaijan, LTC Lab, Artificial Intelligence, Python Programming, Scikit-learn, OpenCV, LSTM, CNN, GANs');
+      metaKeywords.setAttribute('content', 'AI Engineering, LLM, RAG Systems, Vector Database, LangChain, Multi-Agent Workflows, Docker, AWS, MLOps, OpenAI, Gemini, ChromaDB, FastAPI, Ollama, Quantization, AI Agents, Production AI, LTC Lab Azerbaijan, Modern AI Course, Prompt Engineering');
     }
 
     // Close mobile nav on escape key
@@ -298,182 +320,499 @@ export default {
         {
           id: 1,
           month: 1,
-          title: 'Python & Data Science Fundamentals',
+          title: 'AI Əsasları və Python',
           topics: [
-            'Python syntax və əsas konseptlər',
-            'NumPy və Pandas əsasları',
-            'Data manipulation və cleaning',
-            'Matplotlib və Seaborn ilə vizualizasiya',
-            'Jupyter Notebook və IDE-lər',
-            'Git və version control'
+            'Dərs 1: Müasir AI Engineer: ML Ops-dan Agentic Workflows-a doğru',
+            'Dərs 2: Birgə Kodlaşdırma: Git və GitHub-a Yiyələnmək',
+            'Dərs 3: Production-a Hazır Python: OOP, Data Structures və Təmiz Kod',
+            'Dərs 4: AI üçün Məlumatların Hazırlanması: NumPy və Pandas',
+            'Dərs 5: ML Əsasları: Supervised və Unsupervised Learning',
+            'Dərs 6: Scikit-learn ilə Proqnozlaşdırıcı Modellərin Qurulması',
+            'Dərs 7: Neyron Şəbəkələri: Neyronlardan Gradient Descent-ə',
+            'Dərs 8: Praktiki Deep Learning: PyTorch-da İlk Neyron Şəbəkəsi'
           ]
         },
         {
           id: 2,
           month: 2,
-          title: 'Machine Learning Foundations',
+          title: 'LLM Ekosistemi və Əsas Tətbiq sahələri',
           topics: [
-            'ML algoritmlərinin əsasları',
-            'Supervised və Unsupervised Learning',
-            'Scikit-learn library',
-            'Model evaluation və validation',
-            'Feature engineering',
-            'Cross-validation və hyperparameter tuning'
+            'Dərs 9: LLM-lər Necə İşləyir: Transformer Arxitekturası və Tokenization',
+            'Dərs 10: Prompt Engineering: Zero-Shot, Few-Shot və Chain-of-Thought',
+            'Dərs 11: LLM API-lərinin İnteqrasiyası: OpenAI/Gemini',
+            'Dərs 12: Semantik Axtarış və Vector DB: AI-ın Yaddaşı',
+            'Dərs 13: Praktiki Vector Search: ChromaDB ilə Tətbiq',
+            'Dərs 14: LangChain ilə LLM Chain-ləri: LCEL Əsasları',
+            'Dərs 15: RAG Sisteminin Dizaynı: Sənədlərin Hazırlanması',
+            'Dərs 16: RAG Sisteminin Qurulması: Retrieval və Generation'
           ]
         },
         {
           id: 3,
           month: 3,
-          title: 'Deep Learning & Neural Networks',
+          title: 'AI Servislərinin Qurulması və Deployment',
           topics: [
-            'Neural networks əsasları',
-            'TensorFlow və Keras',
-            'Convolutional Neural Networks (CNN)',
-            'Recurrent Neural Networks (RNN)',
-            'Transfer learning',
-            'Model optimization'
+            'Dərs 17: AI Tətbiqlərinin Docker ilə Paketlənməsi',
+            'Dərs 18: Praktiki Docker: FastAPI və LangChain Konteynerləşdirilməsi',
+            'Dərs 19: Production API-ləri: FastAPI ilə Backend-lər',
+            'Dərs 20: AI Modellərinin Serving-i: LangChain FastAPI Endpoint-i',
+            'Dərs 21: Cloud-a Giriş: AWS Ekosistemi',
+            'Dərs 22: Əsas AWS Servisləri: IAM, S3 və EC2',
+            'Dərs 23: Lokaldan Qlobala: Docker AWS EC2-də Deployment',
+            'Dərs 24: Geniş Miqyaslı ML: AWS SageMaker'
           ]
         },
         {
           id: 4,
           month: 4,
-          title: 'Advanced AI & MLOps',
+          title: 'Qabaqcıl AI Sistemləri və Production',
           topics: [
-            'Natural Language Processing (NLP)',
-            'Computer Vision',
-            'MLOps və model deployment',
-            'Docker və containerization',
-            'Cloud platforms (AWS/Azure)',
-            'Final project development'
+            'Dərs 25: Avtomatlaşdırmanın Gələcəyi: Avtonom AI Agent-ləri',
+            'Dərs 26: MLOps Həyat Dövrü: MLflow ilə Təcrübələrin İzlənməsi',
+            'Dərs 27: API-dən Asılılıqsız: Ollama ilə Open-Source Modellər',
+            'Dərs 28: RAG Dəqiqliyinin Artırılması: Query Rewriting və Re-ranking',
+            'Dərs 29: Komanda AI-ları: LangGraph/CrewAI Multi-Agent Workflows',
+            'Dərs 30: Yüksək Performanslı AI: Quantization və vLLM Serving',
+            'Dərs 31: Production AI Monitorinqi: LangFuse ilə İzləmə',
+            'Dərs 32: AI Təhlükəsizliyi: Prompt Injection və Data Leakage Müdafiəsi'
           ]
         }
       ],
       monthlyProjects: [
+        // Month 1 Projects
         {
           id: 1,
           month: 1,
-          title: 'Satış Məlumatları Analizi',
-          description: 'Pandas və NumPy istifadə edərək satış məlumatlarının analizi və vizualizasiyası.',
-          technologies: ['Python', 'Pandas', 'NumPy', 'Matplotlib'],
-          difficulty: 2
+          title: 'Müştəri Seqmentasiyası Alqoritmi',
+          description: 'Scikit-learn ilə müştəri məlumatlarına əsasən onları fərqli qruplara ayıran K-Means clustering modeli.',
+          technologies: ['Python', 'Scikit-learn', 'K-Means', 'Pandas'],
+          difficulty: 3,
+          markets: ['Azərbaycan', 'UAE', 'Remote (Fundamental)']
         },
         {
           id: 2,
           month: 1,
-          title: 'Hava Məlumatları Vizualizasiyası',
-          description: 'Hava məlumatlarının toplanması və interaktiv vizualizasiya dashboard-u.',
-          technologies: ['Python', 'Pandas', 'Seaborn', 'Plotly'],
-          difficulty: 3
+          title: 'Enerji Sərfiyyatı Proqnozu',
+          description: 'Keçmiş məlumatlara əsasən gələcək enerji tələbatını proqnozlaşdıran linear regression modeli.',
+          technologies: ['Python', 'Scikit-learn', 'Linear Regression', 'Pandas'],
+          difficulty: 3,
+          markets: ['Remote (Energy)', 'UAE']
         },
         {
           id: 3,
-          month: 2,
-          title: 'Ev Qiymət Proqnozlaşdırması',
-          description: 'Ev qiymətlərinin proqnozlaşdırılması üçün ML modeli.',
-          technologies: ['Python', 'Scikit-learn', 'Pandas', 'Regression'],
-          difficulty: 3
+          month: 1,
+          title: 'Maliyyə Məlumatlarının Təmizlənməsi',
+          description: 'Pandas ilə səhv və əskik məlumatları olan maliyyə cədvəlini avtomatik təmizləyən Python skripti.',
+          technologies: ['Python', 'Pandas', 'Data Cleaning', 'NumPy'],
+          difficulty: 2,
+          markets: ['UAE (Fintech)', 'Remote (Fintech)']
         },
         {
           id: 4,
-          month: 2,
-          title: 'Müştəri Seqmentasiyası',
-          description: 'K-means clustering ilə müştəri seqmentasiyası.',
-          technologies: ['Python', 'Scikit-learn', 'Clustering', 'Visualization'],
-          difficulty: 4
+          month: 1,
+          title: 'Tweet Sentiment Analizatoru',
+          description: 'Tweet-lərin positiv, negativ və ya neytral olduğunu təyin edən sadə Scikit-learn klassifikatoru.',
+          technologies: ['Python', 'Scikit-learn', 'NLP', 'Twitter API'],
+          difficulty: 3,
+          markets: ['Remote', 'UAE']
         },
         {
           id: 5,
-          month: 3,
-          title: 'Şəkil Klassifikasiyası CNN',
-          description: 'Convolutional Neural Network ilə şəkil klassifikasiyası.',
-          technologies: ['Python', 'TensorFlow', 'Keras', 'CNN'],
-          difficulty: 4
+          month: 1,
+          title: 'GitHub Repository Analizatoru',
+          description: 'GitHub API ilə istifadəçinin repository-lərini analiz edən, dil və aktivlik statistikasını çıxaran alət.',
+          technologies: ['Python', 'GitHub API', 'Pandas', 'Matplotlib'],
+          difficulty: 3,
+          markets: ['Remote']
         },
         {
           id: 6,
-          month: 3,
-          title: 'Səhm Qiymət Proqnozlaşdırması RNN',
-          description: 'LSTM şəbəkələri ilə səhm qiymətlərinin proqnozlaşdırılması.',
-          technologies: ['Python', 'TensorFlow', 'LSTM', 'Time Series'],
-          difficulty: 5
+          month: 1,
+          title: 'Sadə Rəqəm Tanıma Neyron Şəbəkəsi',
+          description: 'PyTorch istifadə edərək, MNIST məlumat bazasındakı əl ilə yazılmış rəqəmləri tanıyan sadə neyron şəbəkəsi.',
+          technologies: ['Python', 'PyTorch', 'Neural Networks', 'MNIST'],
+          difficulty: 4,
+          markets: ['Remote', 'UAE (Fundamental)']
         },
         {
           id: 7,
-          month: 4,
-          title: 'Sentiment Analizi NLP',
-          description: 'Mətn məlumatlarının sentiment analizi və təsnifatı.',
-          technologies: ['Python', 'NLTK', 'TensorFlow', 'NLP'],
-          difficulty: 4
+          month: 1,
+          title: 'Səhm Qiyməti Vizualizasiyası',
+          description: 'Pandas və Matplotlib ilə bir şirkətin tarixi səhm məlumatlarının vizual qrafiklərini yaratmaq.',
+          technologies: ['Python', 'Pandas', 'Matplotlib', 'Finance API'],
+          difficulty: 2,
+          markets: ['UAE (Fintech)', 'Remote (Fintech)']
         },
         {
           id: 8,
-          month: 4,
-          title: 'Obyekt Aşkarlama Sistemi',
-          description: 'Real-time obyekt aşkarlama sistemi.',
-          technologies: ['Python', 'OpenCV', 'YOLO', 'Computer Vision'],
-          difficulty: 5
+          month: 1,
+          title: 'İstifadəçi Qeydiyyatı Simulyatoru',
+          description: 'OOP tətbiq edərək, yeni istifadəçilərin məlumatlarını doğrulayan və saxlayan bir sinif strukturu.',
+          technologies: ['Python', 'OOP', 'Data Validation', 'SQLite'],
+          difficulty: 2,
+          markets: ['Azərbaycan', 'UAE']
+        },
+        {
+          id: 9,
+          month: 1,
+          title: 'Əmlak Qiymətlərinin Proqnozlaşdırılması',
+          description: 'Scikit-learn ilə evin parametrlərinə əsasən (sahə, otaq sayı) qiymətini təxmin edən model.',
+          technologies: ['Python', 'Scikit-learn', 'Regression', 'Feature Engineering'],
+          difficulty: 3,
+          markets: ['Azərbaycan', 'UAE']
+        },
+        {
+          id: 10,
+          month: 1,
+          title: 'Hava Məlumatları Təhlili',
+          description: 'Açıq API-dan hava proqnozu məlumatlarını toplayan və Pandas ilə analizlər aparan Python skripti.',
+          technologies: ['Python', 'Weather API', 'Pandas', 'Data Analysis'],
+          difficulty: 2,
+          markets: ['Remote (Energy)', 'Azerbaijan']
+        },
+        // Month 2 Projects
+        {
+          id: 11,
+          month: 2,
+          title: 'Sənəd Sual-Cavab Botu (RAG)',
+          description: 'Şirkətin daxili sənədlərini ChromaDB-yə yükləyib, sualları cavablandıran LangChain chatbot-u.',
+          technologies: ['Python', 'LangChain', 'ChromaDB', 'OpenAI API'],
+          difficulty: 4,
+          markets: ['UAE', 'Azerbaijan', 'Remote']
+        },
+        {
+          id: 12,
+          month: 2,
+          title: 'Məhsul Təsviri Yaradıcısı',
+          description: 'Məhsulun xüsusiyyətlərindən LLM API ilə cəlbedici marketinq təsvirləri yaradan alət.',
+          technologies: ['Python', 'LLM API', 'Prompt Engineering', 'Marketing'],
+          difficulty: 3,
+          markets: ['Remote', 'UAE']
+        },
+        {
+          id: 13,
+          month: 2,
+          title: 'E-poçt Kategorizatoru',
+          description: 'Gələn e-poçtları avtomatik təsnifləndirən və hər kateqoriya üçün cavab layihəsi hazırlayan sistem.',
+          technologies: ['Python', 'NLP', 'Email Processing', 'LLM'],
+          difficulty: 4,
+          markets: ['Remote', 'UAE']
+        },
+        {
+          id: 14,
+          month: 2,
+          title: 'Xəbər Məqaləsi Xülasəçisi',
+          description: 'URL-dən məqaləni oxuyan və LLM ilə 3-4 cümləlik xülasəsini çıxaran proqram.',
+          technologies: ['Python', 'Web Scraping', 'LLM', 'BeautifulSoup'],
+          difficulty: 3,
+          markets: ['Remote', 'Azerbaijan']
+        },
+        {
+          id: 15,
+          month: 2,
+          title: 'Kod Açıqlayıcısı',
+          description: 'Bir Python funksiyasını qəbul edib, onun nə işə yaradığını sadə dildə izah edən prompt-a əsaslanan alət.',
+          technologies: ['Python', 'Code Analysis', 'LLM', 'Prompt Engineering'],
+          difficulty: 3,
+          markets: ['Remote']
+        },
+        {
+          id: 16,
+          month: 2,
+          title: 'Fintech FAQ Botu',
+          description: 'Bankçılıqla bağlı tez-tez verilən sualların cavabları üzərində qurulmuş RAG botu.',
+          technologies: ['Python', 'RAG', 'LangChain', 'Financial Domain'],
+          difficulty: 4,
+          markets: ['UAE (Fintech)', 'Remote (Fintech)']
+        },
+        {
+          id: 17,
+          month: 2,
+          title: 'Sosial Media Post Generatoru',
+          description: 'Mövzuya uyğun Twitter və LinkedIn üçün post fikirləri yaradan prompt-a əsaslanan alət.',
+          technologies: ['Python', 'Social Media APIs', 'LLM', 'Content Generation'],
+          difficulty: 3,
+          markets: ['Remote']
+        },
+        {
+          id: 18,
+          month: 2,
+          title: 'İstifadəçi Rəylərinin Analizi',
+          description: 'Müştəri rəylərindən əsas şikayət mövzularını və pozitiv cəhətləri çıxaran LLM sistemi.',
+          technologies: ['Python', 'Sentiment Analysis', 'LLM', 'Data Processing'],
+          difficulty: 3,
+          markets: ['UAE', 'Azerbaijan']
+        },
+        {
+          id: 19,
+          month: 2,
+          title: 'Travel Itinerary Planlayıcısı',
+          description: 'Verilən məlumatlara əsasən (şəhər, gün sayı) fərdi səyahət planı tərtib edən proqram.',
+          technologies: ['Python', 'LLM', 'Travel APIs', 'Planning Logic'],
+          difficulty: 3,
+          markets: ['Remote', 'Azerbaijan']
+        },
+        {
+          id: 20,
+          month: 2,
+          title: 'Enerji Hesabı Məlumat Çıxarıcısı',
+          description: 'Enerji fakturasının şəklindən VLM API ilə ümumi sərfiyyat kimi məlumatları avtomatik çıxaran prototip.',
+          technologies: ['Python', 'Vision API', 'OCR', 'Document Processing'],
+          difficulty: 4,
+          markets: ['Remote (Energy)']
+        },
+        // Month 3 Projects
+        {
+          id: 21,
+          month: 3,
+          title: 'RAG Chatbot API-ı',
+          description: '2-ci aydakı "Sənəd Sual-Cavab Botu"nu FastAPI və Docker ilə REST API-a çevirmək.',
+          technologies: ['Python', 'FastAPI', 'Docker', 'RAG', 'API Development'],
+          difficulty: 4,
+          markets: ['Remote', 'UAE']
+        },
+        {
+          id: 22,
+          month: 3,
+          title: 'AWS-də Deploy Edilmiş Xülasə Servisi',
+          description: '"Xəbər Məqaləsi Xülasəçisi" layihəsini Docker-laşdırıb, AWS EC2-də deploy etmək.',
+          technologies: ['Python', 'AWS EC2', 'Docker', 'Deployment', 'Cloud'],
+          difficulty: 4,
+          markets: ['Remote', 'UAE']
+        },
+        {
+          id: 23,
+          month: 3,
+          title: 'Real-Time Səhm Məlumatı API-ı',
+          description: 'Real-zamanlı səhm məlumatları ilə "bu səhm niyə qalxır?" kimi suallara cavab verən FastAPI servisi.',
+          technologies: ['Python', 'FastAPI', 'Real-time Data', 'Finance APIs', 'LLM'],
+          difficulty: 5,
+          markets: ['UAE (Fintech)', 'Remote (Fintech)']
+        },
+        {
+          id: 24,
+          month: 3,
+          title: 'Avtomatlaşdırılmış Kod Review Servisi',
+          description: 'Hər yeni commit-də kodu LLM-ə göndərərək potensial səhvlər haqqında rəy bildirən backend servisi.',
+          technologies: ['Python', 'Git Hooks', 'LLM', 'Code Analysis', 'FastAPI'],
+          difficulty: 5,
+          markets: ['Remote']
+        },
+        {
+          id: 25,
+          month: 3,
+          title: 'Müştəri Rəyi Analiz Paneli',
+          description: 'FastAPI və Streamlit ilə müştəri rəylərini analiz edən interaktiv panel yaratmaq.',
+          technologies: ['Python', 'FastAPI', 'Streamlit', 'Docker', 'Analytics'],
+          difficulty: 4,
+          markets: ['UAE', 'Azerbaijan']
+        },
+        {
+          id: 26,
+          month: 3,
+          title: 'S3 Sənədlər üçün RAG Sistemi',
+          description: 'AWS S3-ə yeni PDF yükləndikdə avtomatik olaraq onu emal edib ChromaDB-yə əlavə edən proses.',
+          technologies: ['Python', 'AWS S3', 'Lambda', 'ChromaDB', 'RAG'],
+          difficulty: 5,
+          markets: ['Remote', 'UAE']
+        },
+        {
+          id: 27,
+          month: 3,
+          title: 'Fərdi Enerji Məsləhəti API-ı',
+          description: 'Aylıq enerji sərfiyyatına görə qənaət üçün fərdi məsləhətlər verən LLM əsaslı API servisi.',
+          technologies: ['Python', 'FastAPI', 'LLM', 'Energy Analytics', 'Recommendations'],
+          difficulty: 4,
+          markets: ['Remote (Energy)']
+        },
+        {
+          id: 28,
+          month: 3,
+          title: 'Tərcümə Mikroservisi',
+          description: 'Mətni bir dildən digərinə tərcümə edən, Docker-da işləyən sadə bir mikroservis.',
+          technologies: ['Python', 'Translation API', 'Docker', 'Microservices', 'FastAPI'],
+          difficulty: 3,
+          markets: ['Azerbaijan', 'UAE']
+        },
+        {
+          id: 29,
+          month: 3,
+          title: 'Şəkil Tagging Servisi',
+          description: 'Şəkil URL-i qəbul edib, VLM API ilə şəkildəki obyektləri təsvir edən tag-lər qaytaran servis.',
+          technologies: ['Python', 'Vision API', 'FastAPI', 'Image Processing', 'ML'],
+          difficulty: 4,
+          markets: ['Remote']
+        },
+        {
+          id: 30,
+          month: 3,
+          title: 'KYC Sənəd Doğrulama API-ı',
+          description: 'Şəxsiyyət vəsiqəsinin şəklindən VLM ilə məlumatları çıxaran və yoxlayan API prototipi.',
+          technologies: ['Python', 'Vision API', 'OCR', 'Document Verification', 'Security'],
+          difficulty: 5,
+          markets: ['UAE (Fintech)']
         }
       ],
       finalProjects: [
         {
           id: 1,
-          title: 'Ağıllı Səhiyyə Köməkçisi',
-          type: 'AI-İdarəli Tətbiq',
-          description: 'Tibbi şəkillərin analizi və xəstəlik diaqnostikası üçün AI köməkçisi.',
+          title: 'Maliyyə Bazarı Analizi üçün Multi-Agent Sistemi',
+          type: 'Multi-Agent AI Sistemi',
+          description: 'Xəbərləri, sosial medianı və qiymətləri analiz edib gündəlik bazar icmalı hazırlayan agent-lər komandası.',
           features: [
-            'Medical image analysis',
-            'Symptom-based diagnosis',
-            'Drug interaction checker',
-            'Health monitoring dashboard',
-            'Personalized treatment recommendations'
+            'News sentiment analysis agent',
+            'Social media monitoring agent',
+            'Price prediction agent',
+            'Risk assessment agent',
+            'Daily market report generation'
           ],
-          technologies: ['Python', 'TensorFlow', 'OpenCV', 'NLP', 'Flask', 'MongoDB'],
-          duration: '3 həftə'
+          technologies: ['Python', 'LangGraph', 'CrewAI', 'LLM APIs', 'Financial APIs', 'Multi-Agent Framework'],
+          duration: '3 həftə',
+          markets: ['Remote (Fintech)', 'UAE (Fintech)']
         },
         {
           id: 2,
-          title: 'Ağıllı Ticarət Botu',
-          type: 'Maliyyə AI Sistemi',
-          description: 'Cryptocurrency və forex ticarəti üçün AI-əsaslı avtomatik ticarət botu.',
+          title: 'Performans-Optimizasiya Edilmiş RAG Servisi',
+          type: 'Production AI Sistemi',
+          description: 'vLLM və quantization ilə aşağı latency ilə işləyən və LangFuse ilə monitorinq edilən RAG API-ı.',
           features: [
-            'Real-time market data analysis',
-            'Predictive price modeling',
-            'Risk management algorithms',
-            'Portfolio optimization',
-            'Automated trading execution'
+            'High-performance inference with vLLM',
+            'Model quantization for efficiency',
+            'Real-time monitoring with LangFuse',
+            'Scalable API architecture',
+            'Cost optimization tracking'
           ],
-          technologies: ['Python', 'TensorFlow', 'Pandas', 'API Integration', 'Time Series', 'FastAPI'],
-          duration: '3 həftə'
+          technologies: ['Python', 'vLLM', 'Quantization', 'LangFuse', 'FastAPI', 'Docker', 'Monitoring'],
+          duration: '3 həftə',
+          markets: ['Remote']
         },
         {
           id: 3,
-          title: 'Çoxdilli Məzmun Yaradıcısı',
-          type: 'NLP Tətbiqi',
-          description: 'Çoxdilli məzmun yaradıcısı və tərcümə sistemi.',
+          title: 'Avtonom Kod Təkmilləşdirmə Agent-i',
+          type: 'Code Analysis AI',
+          description: 'Mövcud kod bazasını analiz edən, səhvləri tapan və refactoring təklifləri verən agent-lər qrupu.',
           features: [
-            'Text generation in multiple languages',
-            'Real-time translation',
-            'Content summarization',
-            'Sentiment analysis',
-            'SEO optimization suggestions'
+            'Automated code review',
+            'Bug detection and suggestions',
+            'Code quality metrics',
+            'Refactoring recommendations',
+            'Performance optimization hints'
           ],
-          technologies: ['Python', 'Transformers', 'BERT', 'GPT', 'FastAPI', 'React'],
-          duration: '3 həftə'
+          technologies: ['Python', 'Code Analysis', 'LLM', 'Git Integration', 'Multi-Agent', 'AST Parsing'],
+          duration: '3 həftə',
+          markets: ['Remote']
         },
         {
           id: 4,
-          title: 'Kompüter Görmə Təhlükəsizlik Sistemi',
-          type: 'IoT AI Həlli',
-          description: 'Ağıllı təhlükəsizlik sistemi real-time obyekt və üz tanıma ilə.',
+          title: 'Enerji Ticarəti Strategiyası Co-pilot-u',
+          type: 'Energy Trading AI',
+          description: 'Hava proqnozu, tələbat və xəbərləri analiz edərək treyderlər üçün strategiyalar təklif edən sistem.',
           features: [
-            'Real-time face recognition',
-            'Anomaly detection',
-            'Motion tracking',
-            'Alert system integration',
-            'Mobile app dashboard'
+            'Weather data integration',
+            'Demand forecasting',
+            'Market news analysis',
+            'Trading strategy recommendations',
+            'Risk management alerts'
           ],
-          technologies: ['Python', 'OpenCV', 'TensorFlow', 'Raspberry Pi', 'Flask', 'SQLite'],
-          duration: '3 həftə'
+          technologies: ['Python', 'Energy APIs', 'Weather APIs', 'LLM', 'Time Series Analysis', 'Trading Logic'],
+          duration: '3 həftə',
+          markets: ['Remote (Energy)']
+        },
+        {
+          id: 5,
+          title: 'Ərəb Dilli Müştəri Xidmətləri üçün Multi-Agent Sistemi',
+          type: 'Multilingual AI Support',
+          description: 'Sorğunu anlayan, RAG ilə cavab tapan və lazım gəldikdə insana yönləndirən agent-lərdən ibarət sistem.',
+          features: [
+            'Arabic language processing',
+            'Intent classification',
+            'RAG-based knowledge retrieval',
+            'Human handoff logic',
+            'Multi-channel support'
+          ],
+          technologies: ['Python', 'Arabic NLP', 'RAG', 'LangChain', 'Multi-Agent', 'Customer Service APIs'],
+          duration: '3 həftə',
+          markets: ['UAE']
+        },
+        {
+          id: 6,
+          title: 'Code a Website Agent-i',
+          type: 'Code Generation AI',
+          description: 'Sadə təsvirə əsasən (məsələn, "portfolio saytı yarat") HTML, CSS, JS kodlarını yaradan agent.',
+          features: [
+            'Natural language to code conversion',
+            'HTML/CSS/JS generation',
+            'Responsive design creation',
+            'Code optimization',
+            'Live preview generation'
+          ],
+          technologies: ['Python', 'LLM', 'Code Generation', 'Web Technologies', 'Template Systems'],
+          duration: '3 həftə',
+          markets: ['Remote']
+        },
+        {
+          id: 7,
+          title: 'Daxili IT Helpdesk Avtomatlaşdırması',
+          type: 'Enterprise AI Assistant',
+          description: 'Şirkətin daxili sənədləri üzərində qurulmuş, Slack/Teams-ə inteqrasiya edilmiş IT problemlərini həll edən agent.',
+          features: [
+            'Internal documentation RAG',
+            'Slack/Teams integration',
+            'IT troubleshooting automation',
+            'Ticket routing logic',
+            'Knowledge base management'
+          ],
+          technologies: ['Python', 'RAG', 'Slack API', 'Teams API', 'IT Service Management', 'Enterprise Integration'],
+          duration: '3 həftə',
+          markets: ['UAE', 'Azerbaijan']
+        },
+        {
+          id: 8,
+          title: 'Təhlükəsiz AI Gateway Prototipi',
+          type: 'AI Security System',
+          description: 'LLM-ə gedən prompt-ları yoxlayaraq prompt injection cəhdlərini bloklayan API gateway servisi.',
+          features: [
+            'Prompt injection detection',
+            'Security policy enforcement',
+            'API request filtering',
+            'Threat monitoring',
+            'Audit logging'
+          ],
+          technologies: ['Python', 'Security Analysis', 'API Gateway', 'Threat Detection', 'Monitoring', 'FastAPI'],
+          duration: '3 həftə',
+          markets: ['UAE (Fintech)', 'Remote']
+        },
+        {
+          id: 9,
+          title: 'Şəxsi AI Məşqçi (Personal AI Coach)',
+          type: 'Personal AI Assistant',
+          description: 'İstifadəçinin hədəflərini izləyən, motivasiya verən və hesabatlar hazırlayan fərdi agent.',
+          features: [
+            'Goal tracking and monitoring',
+            'Personalized motivation system',
+            'Progress reporting',
+            'Habit formation assistance',
+            'Achievement analytics'
+          ],
+          technologies: ['Python', 'Personal Analytics', 'LLM', 'Behavioral Analysis', 'Mobile Integration'],
+          duration: '3 həftə',
+          markets: ['Remote']
+        },
+        {
+          id: 10,
+          title: 'Lokal Biznes üçün Marketinq Bot-u',
+          type: 'Local Business AI',
+          description: 'Azərbaycan bazarındakı kiçik biznesin məhsulları haqqında sualları cavablandıran Telegram/WhatsApp botu.',
+          features: [
+            'Local business knowledge base',
+            'Telegram/WhatsApp integration',
+            'Product information system',
+            'Customer inquiry handling',
+            'Local market insights'
+          ],
+          technologies: ['Python', 'Telegram Bot API', 'WhatsApp API', 'Local Business APIs', 'RAG', 'Azerbaijani NLP'],
+          duration: '3 həftə',
+          markets: ['Azerbaijan']
         }
       ]
     }
@@ -498,6 +837,30 @@ export default {
     closeMobileNav() {
       this.isMobileNavOpen = false;
       document.body.style.overflow = '';
+    },
+    getMarketClass(market) {
+      if (market.includes('Azerbaijan') || market.includes('Azərbaycan')) {
+        return 'market-azerbaijan';
+      } else if (market.includes('UAE')) {
+        return 'market-uae';
+      } else if (market.includes('Remote')) {
+        return 'market-remote';
+      } else if (market.includes('Fintech')) {
+        return 'market-fintech';
+      } else if (market.includes('Energy')) {
+        return 'market-energy';
+      }
+      return 'market-default';
+    },
+    formatMarketName(market) {
+      if (market.includes('Azerbaijan') || market.includes('Azərbaycan')) {
+        return '🇦🇿 ' + market.replace('Azerbaijan', 'Azərbaycan');
+      } else if (market.includes('UAE')) {
+        return '🇦🇪 ' + market.replace('UAE', 'BƏƏ');
+      } else if (market.includes('Remote')) {
+        return '🌐 ' + market;
+      }
+      return market;
     }
   },
   beforeUnmount() {
