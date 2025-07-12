@@ -303,7 +303,7 @@ class ApiService {
     const studentData = await this.getStudent(studentId);
     
     // Try to get the program name by finding which program this student's group belongs to
-    let programName = 'Suni intellekt Əsaslı Proqramlaşdırma'; // Default
+    let programName = 'Suni intellekt Əsaslı Java Backend'; // Default
     try {
       const programs = await this.getPrograms();
       for (const program of programs) {

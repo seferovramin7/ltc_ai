@@ -61,7 +61,7 @@
             <div class="course-icon">
               <span class="icon-java" role="img" aria-label="Java Programming">☕</span>
             </div>
-            <h3 class="course-title" itemprop="name">Suni intellekt Əsaslı Proqramlaşdırma</h3>
+            <h3 class="course-title" itemprop="name">Suni intellekt Əsaslı Java Backend</h3>
             <p class="course-description" itemprop="description">
               Core Java Proqramlaşdırma, Məlumat Strukturları və Alqoritmlər, Sistem Dizaynı öyrənin. Spring Boot, Mikroservislər, 
               AI Agent İnkişafı və müəssisə səviyyəli backend tətbiqləri hazırlayın.
