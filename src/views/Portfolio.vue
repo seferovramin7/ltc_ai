@@ -14,8 +14,24 @@
           <a href="https://www.ltclab.edu.az/about" class="nav-link">Haqqında</a>
           <a href="https://www.ltclab.edu.az/elaqe" class="nav-link">Əlaqə</a>
         </nav>
+        <button class="mobile-nav-toggle" @click="toggleMobileNav">
+          <div class="hamburger" :class="{ active: isMobileNavOpen }">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
       </div>
     </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" :class="{ active: isMobileNavOpen }">
+      <button class="mobile-nav-close" @click="closeMobileNav">×</button>
+      <a href="/#courses" class="mobile-nav-link" @click="closeMobileNav">Kurslar</a>
+      <router-link to="/portfolio" class="mobile-nav-link" @click="closeMobileNav">Portfoliolar</router-link>
+      <a href="https://www.ltclab.edu.az/about" class="mobile-nav-link" @click="closeMobileNav">Haqqında</a>
+      <a href="https://www.ltclab.edu.az/elaqe" class="mobile-nav-link" @click="closeMobileNav">Əlaqə</a>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -198,7 +214,8 @@ export default {
       allProjects: [],
       loading: true,
       error: null,
-      storageKey: 'ltc_portfolio_filters'
+      storageKey: 'ltc_portfolio_filters',
+      isMobileNavOpen: false
     }
   },
   computed: {
@@ -419,6 +436,20 @@ export default {
 
     shouldShowPlaceholder(imageUrl) {
       return !imageUrl || imageUrl === '/images/default-avatar.jpg'
+    },
+
+    toggleMobileNav() {
+      this.isMobileNavOpen = !this.isMobileNavOpen;
+      if (this.isMobileNavOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    },
+
+    closeMobileNav() {
+      this.isMobileNavOpen = false;
+      document.body.style.overflow = '';
     }
   },
   async mounted() {
@@ -441,11 +472,20 @@ export default {
     if (metaKeywords) {
       metaKeywords.setAttribute('content', 'tələbə portfolioları, AI layihələri, suni intellekt layihələri, student projects, machine learning projects, Java projects, Python AI projects, LTC Lab students, AI programming portfolio')
     }
+
+    // Close mobile nav on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isMobileNavOpen) {
+        this.closeMobileNav();
+      }
+    });
   },
   
   beforeUnmount() {
     // Clean up performance observers
     PerformanceService.disconnect();
+    // Clean up body overflow style
+    document.body.style.overflow = '';
   }
 }
 </script>

@@ -14,8 +14,24 @@ c<template>
           <a href="https://www.ltclab.edu.az/about" class="nav-link">Haqqında</a>
           <a href="https://www.ltclab.edu.az/elaqe" class="nav-link">Əlaqə</a>
         </nav>
+        <button class="mobile-nav-toggle" @click="toggleMobileNav">
+          <div class="hamburger" :class="{ active: isMobileNavOpen }">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
       </div>
     </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" :class="{ active: isMobileNavOpen }">
+      <button class="mobile-nav-close" @click="closeMobileNav">×</button>
+      <router-link to="/" class="mobile-nav-link" @click="closeMobileNav">Ana Səhifə</router-link>
+      <router-link to="/portfolio" class="mobile-nav-link" @click="closeMobileNav">Portfoliolar</router-link>
+      <a href="https://www.ltclab.edu.az/about" class="mobile-nav-link" @click="closeMobileNav">Haqqında</a>
+      <a href="https://www.ltclab.edu.az/elaqe" class="mobile-nav-link" @click="closeMobileNav">Əlaqə</a>
+    </div>
 
     <!-- Course Hero -->
     <section class="course-hero">
@@ -357,12 +373,20 @@ export default {
     if (metaKeywords) {
       metaKeywords.setAttribute('content', 'AI Based Software Engineering, Core Java Programming, Data Structures Algorithms, System Design, Spring Boot, Microservices, AI Agent Development, Backend Development, Java Course Azerbaijan, LTC Lab, Software Engineering Course, Enterprise Applications');
     }
+
+    // Close mobile nav on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isMobileNavOpen) {
+        this.closeMobileNav();
+      }
+    });
   },
   data() {
     return {
       activeTab: 'syllabus',
       selectedMonth: 'all',
       selectedSection: 'all',
+      isMobileNavOpen: false,
       syllabus: [
         {
           id: 1,
@@ -684,6 +708,24 @@ export default {
     systemDesignModules() {
       return this.syllabus.filter(module => module.section === 'System Design');
     }
+  },
+  methods: {
+    toggleMobileNav() {
+      this.isMobileNavOpen = !this.isMobileNavOpen;
+      if (this.isMobileNavOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    },
+    closeMobileNav() {
+      this.isMobileNavOpen = false;
+      document.body.style.overflow = '';
+    }
+  },
+  beforeUnmount() {
+    // Clean up body overflow style
+    document.body.style.overflow = '';
   }
 }
 </script> 
