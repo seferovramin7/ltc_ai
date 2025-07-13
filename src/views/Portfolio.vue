@@ -199,6 +199,7 @@ import PortfolioService from '../data/portfolioService.js'
 import StudentCard from '../components/portfolio/StudentCard.vue'
 import ImageService from '../services/imageService.js'
 import PerformanceService from '../services/performanceService.js'
+import MetaService from '../services/metaService.js'
 
 export default {
   name: 'Portfolio',
@@ -458,14 +459,8 @@ export default {
     
     await this.loadData()
     
-    // Set page title and meta tags
-    document.title = 'Tələbə Portfolioları - LTC Lab AI Kursları | Bakı'
-    
-    // Update meta description
-    let metaDescription = document.querySelector('meta[name="description"]')
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'LTC Lab tələbələrinin real AI layihələri və portfolioları. Suni intellekt kurslarımızda hazırlanan layihələri kəşf edin. AI proqramlaşdırma və maşın öyrənməsi nümunələri.')
-    }
+    // Set portfolio listing meta tags for social media sharing
+    MetaService.setPortfolioListingMeta()
     
     // Update meta keywords
     let metaKeywords = document.querySelector('meta[name="keywords"]')

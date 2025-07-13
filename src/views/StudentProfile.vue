@@ -152,6 +152,7 @@
 <script>
 import PortfolioService from '../data/portfolioService.js'
 import ProjectCard from '../components/portfolio/ProjectCard.vue'
+import MetaService from '../services/metaService.js'
 
 export default {
   name: 'StudentProfile',
@@ -176,8 +177,10 @@ export default {
         this.student = await PortfolioService.getStudentById(studentId)
 
         if (this.student) {
-          // Set page title
-          document.title = `${this.student.name} ${this.student.surname} - Portfolio | LTC Lab`
+          // Set dynamic meta tags for social media sharing
+          const projectHighlight = this.student.projects && this.student.projects.length > 0 ? 
+                                   this.student.projects[0] : null
+          MetaService.setStudentPortfolioMeta(this.student, projectHighlight)
         } else {
           this.error = 'Tələbə tapılmadı'
         }
@@ -234,6 +237,8 @@ export default {
   beforeUnmount() {
     // Clean up body overflow style
     document.body.style.overflow = '';
+    // Reset meta tags to default when leaving the page
+    MetaService.resetToDefault();
   },
   watch: {
     '$route'() {
