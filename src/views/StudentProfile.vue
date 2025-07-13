@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Header -->
     <header class="header">
       <div class="container">
         <div class="nav-brand">
@@ -24,7 +23,6 @@
       </div>
     </header>
 
-    <!-- Mobile Navigation -->
     <div class="mobile-nav" :class="{ active: isMobileNavOpen }">
       <button class="mobile-nav-close" @click="closeMobileNav">×</button>
       <a href="/#courses" class="mobile-nav-link" @click="closeMobileNav">Kurslar</a>
@@ -33,7 +31,6 @@
       <a href="https://www.ltclab.edu.az/elaqe" class="mobile-nav-link" @click="closeMobileNav">Əlaqə</a>
     </div>
 
-    <!-- Hero Section with Profile Picture -->
     <section class="hero" v-if="student">
       <div class="container">
         <div class="hero-content">
@@ -42,24 +39,24 @@
               <div v-if="shouldShowPlaceholder(student.photo)" class="profile-placeholder">
                 <span class="initials">{{ getInitials(student.name, student.surname) }}</span>
               </div>
-              <img 
-                v-else
-                :src="student.photo" 
-                :alt="`${student.name} ${student.surname}`" 
-                class="profile-picture"
-                @error="handleImageError"
-                loading="lazy"
+              <img
+                  v-else
+                  :src="student.photo"
+                  :alt="`${student.name} ${student.surname}`"
+                  class="profile-picture"
+                  @error="handleImageError"
+                  loading="lazy"
               >
             </div>
             <div class="profile-info">
-          <h1 class="hero-title">{{ student.name }} {{ student.surname }}</h1>
+              <h1 class="hero-title">{{ student.name }} {{ student.surname }}</h1>
               <p class="student-details">{{ student.age }} yaş • {{ student.profession }}</p>
               <div class="student-badges">
                 <span class="program-badge">{{ student.programName }}</span>
                 <span class="group-badge">{{ student.groupName }}</span>
               </div>
-        </div>
-      </div>
+            </div>
+          </div>
           <div class="back-navigation">
             <button @click="goBack" class="back-btn">
               ← Portfoliolara qayıt
@@ -69,30 +66,28 @@
       </div>
     </section>
 
-    <!-- Student Profile -->
     <section class="student-profile" v-if="student">
       <div class="container">
 
-        <!-- Projects Section -->
         <div class="projects-section">
           <h2 class="section-title">Layihələr ({{ student.projects.length }})</h2>
-          
+
           <div v-if="student.projects.length === 0" class="no-projects">
             <p>Hələ ki layihə əlavə edilməyib.</p>
           </div>
-          
+
           <div v-else class="projects-grid">
             <ProjectCard
-              v-for="project in student.projects"
-              :key="project.id"
-              :project="project"
+                v-for="project in student.projects"
+                :key="project.id"
+                :project="project"
+                :studentInfo="student"
             />
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Loading State -->
     <section v-else-if="loading" class="loading">
       <div class="container">
         <div class="loading-content">
@@ -102,7 +97,6 @@
       </div>
     </section>
 
-    <!-- Error State -->
     <section v-else class="error">
       <div class="container">
         <div class="error-content">
@@ -110,19 +104,18 @@
           <p>{{ error ? 'Zəhmət olmasa yenidən cəhd edin.' : 'Axtardığınız tələbə portfoliosu mövcud deyil.' }}</p>
           <div class="error-actions">
             <button v-if="error" @click="loadStudent" class="retry-btn">Yenidən cəhd et</button>
-          <router-link to="/portfolio" class="back-link">Portfoliolara qayıt</router-link>
+            <router-link to="/portfolio" class="back-link">Portfoliolara qayıt</router-link>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
       <div class="container">
         <div class="footer-content">
           <div class="footer-brand">
             <p class="footer-text">
-              LTC Lab - Azərbaycanın aparıcı <strong>suni intellekt</strong> və texnologiya təhsil mərkəzi. 
+              LTC Lab - Azərbaycanın aparıcı <strong>suni intellekt</strong> və texnologiya təhsil mərkəzi.
               <strong>Suni intellekt kursları</strong> ilə gələcəyin rəqəmsal dünyasına hazırlaşın.
             </p>
           </div>
@@ -178,13 +171,13 @@ export default {
       try {
         this.loading = true
         this.error = null
-        
+
         const studentId = parseInt(this.$route.params.id)
         this.student = await PortfolioService.getStudentById(studentId)
-      
-      if (this.student) {
-        // Set page title
-        document.title = `${this.student.name} ${this.student.surname} - Portfolio | LTC Lab`
+
+        if (this.student) {
+          // Set page title
+          document.title = `${this.student.name} ${this.student.surname} - Portfolio | LTC Lab`
         } else {
           this.error = 'Tələbə tapılmadı'
         }
@@ -195,9 +188,7 @@ export default {
         this.loading = false
       }
     },
-    
 
-    
     goBack() {
       this.$router.push('/portfolio')
     },
@@ -232,7 +223,7 @@ export default {
   },
   async mounted() {
     await this.loadStudent()
-    
+
     // Close mobile nav on escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.isMobileNavOpen) {
@@ -253,10 +244,6 @@ export default {
 </script>
 
 <style scoped>
-
-
-
-
 /* Hero Section */
 .hero {
   background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
@@ -732,11 +719,11 @@ export default {
   .hero {
     padding: 80px 0 40px;
   }
-  
+
   .hero-content {
     padding: 0 1rem;
   }
-  
+
   .profile-section {
     flex-direction: column;
     text-align: center;
@@ -744,71 +731,71 @@ export default {
     padding: 2rem 1.5rem;
     margin: 0 1rem 3rem 1rem;
   }
-  
+
   .profile-info {
     text-align: center;
     min-height: auto;
   }
-  
+
   .profile-picture, .profile-placeholder {
     width: 140px;
     height: 140px;
     border-width: 4px;
   }
-  
+
   .initials {
     font-size: 2.5rem;
   }
-  
+
   .hero-title {
     font-size: 2.2rem;
   }
-  
+
   .student-details {
     font-size: 1.1rem;
     justify-content: center;
   }
-  
+
   .student-badges {
     justify-content: center;
   }
-  
+
   .back-navigation {
     text-align: center;
     margin-bottom: 1.5rem;
   }
-  
+
   .student-header {
     flex-direction: column;
     text-align: center;
     gap: 1.5rem;
   }
-  
+
   .student-avatar img {
     width: 100px;
     height: 100px;
   }
-  
+
   .student-name {
     font-size: 1.5rem;
   }
-  
+
   .student-meta {
     justify-content: center;
   }
-  
+
   .projects-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .footer-content {
     grid-template-columns: 1fr;
   }
-  
+
   .footer-links {
     grid-template-columns: 1fr;
   }
-  
+
 
 }
 
@@ -816,58 +803,58 @@ export default {
   .hero {
     padding: 60px 0 30px;
   }
-  
+
   .hero-content {
     padding: 0 0.5rem;
   }
-  
+
   .profile-section {
     padding: 1.5rem 1rem;
     margin: 0 0.5rem 2rem 0.5rem;
     gap: 1.5rem;
   }
-  
+
   .profile-picture, .profile-placeholder {
     width: 120px;
     height: 120px;
     border-width: 3px;
   }
-  
+
   .initials {
     font-size: 2.2rem;
   }
-  
+
   .hero-title {
     font-size: 1.9rem;
   }
-  
+
   .student-details {
     font-size: 1rem;
   }
-  
+
   .student-badges {
     flex-direction: column;
     align-items: center;
     gap: 0.8rem;
   }
-  
+
   .program-badge,
   .group-badge {
     font-size: 0.85rem;
     padding: 0.5rem 1rem;
   }
-  
+
   .back-btn {
     padding: 0.6rem 1.2rem;
     font-size: 0.9rem;
   }
-  
+
   .student-profile {
     padding: 80px 0 40px;
   }
-  
+
   .section-title {
     font-size: 1.5rem;
   }
 }
-</style> 
+</style>

@@ -56,6 +56,7 @@
         </div>
         
         <div class="project-links">
+          <SocialShareCard :student="studentInfo" :project="project" />
           <a 
             v-if="project.githubUrl || project.githubLink" 
             :href="project.githubUrl || project.githubLink" 
@@ -145,12 +146,22 @@
 </template>
 
 <script>
+import SocialShareCard from './SocialShareCard.vue'
+
 export default {
   name: 'ProjectCard',
+  components: {
+    SocialShareCard
+  },
   props: {
     project: {
       type: Object,
       required: true
+    },
+    studentInfo: {
+      type: Object,
+      required: false,
+      default: null
     }
   },
   data() {
@@ -599,6 +610,8 @@ export default {
   display: flex;
   gap: 0.75rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .project-link {
