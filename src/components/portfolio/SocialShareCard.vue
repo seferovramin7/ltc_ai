@@ -1,6 +1,5 @@
 <template>
   <div class="social-share">
-    <!-- Share Button -->
     <button
         @click="openShareModal"
         class="share-btn"
@@ -9,7 +8,6 @@
       Paylaş
     </button>
 
-    <!-- Share Modal -->
     <Teleport to="body">
       <div v-if="showModal" class="modal-backdrop" @click="closeModal">
         <div class="modal-container" @click.stop>
@@ -19,7 +17,6 @@
           </div>
 
           <div class="modal-body">
-            <!-- Project Selection -->
             <div class="project-selector" v-if="!project && student && student.projects.length > 1">
               <label for="project-select">Layihə seçin:</label>
               <select id="project-select" v-model="selectedProject">
@@ -33,7 +30,6 @@
               </select>
             </div>
 
-            <!-- Preview Card -->
             <div class="share-preview">
               <div id="share-card" class="share-card" ref="shareCard">
                 <div class="card-header">
@@ -64,24 +60,20 @@
                       <span class="month-text">{{ selectedProject.numberOfMonths }}. ay</span>
                     </div>
                     <h4 class="project-title">{{ selectedProject.title }}</h4>
-                    <p class="project-description">{{ truncateText(selectedProject.description, 120) }}</p>
-
-                    <div class="project-meta">
-
-
-                      <div class="tech-stack" v-if="getTechStackArray(selectedProject.techStack || []).length > 0">
-                        <span class="tech-list">{{
-                            getTechStackArray(selectedProject.techStack || []).slice(0, 3).join(' • ')
-                          }}</span>
-                      </div>
-                    </div>
+                    <p class="project-description">{{ truncateText(selectedProject.description, 200) }}</p>
                   </div>
+                </div>
 
+                <div class="card-footer" v-if="selectedProject">
+                  <div class="tech-stack" v-if="getTechStackArray(selectedProject.techStack || []).length > 0">
+                        <span class="tech-list">{{
+                            getTechStackArray(selectedProject.techStack || []).slice(0, 4).join(' • ')
+                          }}</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Download Button -->
             <div class="download-section">
               <button @click="downloadImage" class="download-btn" :disabled="downloading">
                 <span v-if="downloading">Yüklənir...</span>
@@ -192,11 +184,9 @@ export default {
 
         const canvas = await html2canvas(element, {
           backgroundColor: '#ffffff',
-          scale: 2,
+          scale: 2, // Produces a 720x1280 image, good for quality
           useCORS: true,
           allowTaint: true,
-          width: 600,
-          height: 350,
           logging: false,
           removeContainer: true
         })
@@ -218,6 +208,7 @@ export default {
 </script>
 
 <style scoped>
+/* Main Button */
 .share-btn {
   display: inline-flex;
   align-items: center;
@@ -243,10 +234,6 @@ export default {
   cursor: not-allowed;
 }
 
-.share-icon {
-  font-size: 1rem;
-}
-
 /* Modal Styles */
 .modal-backdrop {
   position: fixed;
@@ -266,8 +253,8 @@ export default {
   background: white;
   border-radius: 12px;
   width: 100%;
-  max-width: 700px;
-  max-height: 90vh;
+  max-width: 420px; /* Adjusted for better viewing of the 9:16 card */
+  max-height: 95vh;
   overflow-y: auto;
 }
 
@@ -291,12 +278,6 @@ export default {
   font-size: 1.5rem;
   cursor: pointer;
   color: #64748b;
-  padding: 0.25rem;
-  line-height: 1;
-}
-
-.modal-close:hover {
-  color: #1a202c;
 }
 
 .modal-body {
@@ -320,15 +301,9 @@ export default {
   border: 2px solid #e2e8f0;
   border-radius: 8px;
   font-size: 1rem;
-  background: white;
 }
 
-.project-selector select:focus {
-  outline: none;
-  border-color: #cb2360;
-}
-
-/* Share Card Styles */
+/* Share Card Styles - 9:16 Aspect Ratio */
 .share-preview {
   margin-bottom: 1.5rem;
   display: flex;
@@ -336,59 +311,48 @@ export default {
 }
 
 .share-card {
-  width: 600px;
-  height: 350px;
+  width: 360px; /* 9 aspect */
+  height: 640px; /* 16 aspect */
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* Pushes header and footer to edges */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  text-align: center;
 }
 
 .card-header {
-  padding: 15px;
-  border-bottom: 1px solid #f1f5f9;
-  display: flex;
-  justify-content: center;
+  padding: 25px 25px 15px 25px;
 }
 
 .logo {
-  height: 32px;
+  height: 20px;
   width: auto;
 }
 
 .card-content {
-  flex: 1;
-  padding: 25px;
+  flex-grow: 1;
+  padding: 15px 30px;
   display: flex;
-  flex-direction: row;
-  gap: 30px;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  gap: 20px;
 }
 
 .student-info {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  text-align: center;
-  flex: 0 0 auto;
-  width: 200px;
-}
-
-.avatar {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
+  gap: 15px;
 }
 
 .avatar-image, .avatar-placeholder {
-  width: 60px;
-  height: 60px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  border: 2px solid #cb2360;
+  border: 4px solid #cb2360;
 }
 
 .avatar-image {
@@ -403,89 +367,71 @@ export default {
 }
 
 .avatar-initials {
-  font-size: 1.4rem;
+  font-size: 3rem;
   font-weight: 700;
   color: white;
 }
 
-.student-details {
-  flex: 1;
-}
-
 .student-name {
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: #1a202c;
-  margin: 0 0 4px 0;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .student-role {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #64748b;
   margin: 0;
 }
 
 .project-info {
-  flex: 1;
-  text-align: left;
-  padding-left: 20px;
-}
-
-.project-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #1a202c;
-  margin: 0 0 8px 0;
-}
-
-.project-description {
-  font-size: 0.95rem;
-  color: #4a5568;
-  line-height: 1.4;
-  margin: 0 0 15px 0;
-}
-
-.project-meta {
+  flex-grow: 1;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 15px;
-  border-top: 1px solid #f1f5f9;
-  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .month-info {
-  display: flex;
-  align-items: center;
-  order: 1;
-  flex: 0 0 auto;
+  margin-top: -50px;
+
+  margin-bottom: 12px;
 }
 
 .month-text {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #cb2360;
-  //background: #f8f9fa;
-  padding: 0px 0px 10px 0px;
-  border-radius: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  display: inline-block;
 }
 
-.tech-stack {
-  display: flex;
-  align-items: center;
-  visibility: visible;
-  opacity: 1;
-  order: 2;
-  flex: 0 0 auto;
+.project-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0 0 10px 0;
+  line-height: 1.3;
+}
+
+.project-description {
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.card-footer {
+  padding: 20px 25px 25px 25px;
+  border-top: 1px solid #f1f5f9;
 }
 
 .tech-list {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #64748b;
   font-weight: 500;
-  display: inline-block;
-  visibility: visible;
-  opacity: 1;
 }
 
 .download-section {
@@ -496,15 +442,16 @@ export default {
   background: #9a1446;
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 0.85rem 1.5rem;
   border-radius: 8px;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .download-btn:hover:not(:disabled) {
-  background: #3182ce;
+  background: #cb2360;
 }
 
 .download-btn:disabled {
@@ -512,73 +459,4 @@ export default {
   cursor: not-allowed;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .modal-container {
-    margin: 1rem;
-    max-width: calc(100vw - 2rem);
-  }
-
-  .share-card {
-    width: 100%;
-    max-width: 500px;
-    height: 350px;
-  }
-
-  .card-content {
-    padding: 20px;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-  }
-
-  .student-info {
-    gap: 12px;
-    width: auto;
-    text-align: center;
-  }
-
-  .project-info {
-    text-align: center;
-    padding-left: 0;
-  }
-
-  .project-meta {
-    justify-content: center;
-  }
-
-  .avatar-image, .avatar-placeholder {
-    width: 60px;
-    height: 60px;
-  }
-
-  .avatar-initials {
-    font-size: 1.4rem;
-  }
-
-  .student-name {
-    font-size: 1.2rem;
-  }
-
-  .project-title {
-    font-size: 1.1rem;
-  }
-
-  .project-description {
-    font-size: 0.9rem;
-  }
-
-  .project-meta {
-    justify-content: center;
-    gap: 12px;
-  }
-
-  .month-text {
-    font-size: 0.85rem;
-  }
-
-  .tech-list {
-    font-size: 0.85rem;
-  }
-}
-</style> 
+</style>
