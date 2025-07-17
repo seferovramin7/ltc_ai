@@ -301,7 +301,7 @@ export default {
     // Update meta keywords
     let metaKeywords = document.querySelector('meta[name="keywords"]');
     if (metaKeywords) {
-      metaKeywords.setAttribute('content', 'AI Engineering, LLM, RAG Systems, Vector Database, LangChain, Multi-Agent Workflows, Docker, AWS, MLOps, OpenAI, Gemini, ChromaDB, FastAPI, Ollama, Quantization, AI Agents, Production AI, LTC Lab Azerbaijan, Modern AI Course, Prompt Engineering');
+      metaKeywords.setAttribute('content', 'AI Engineering, LLM, RAG Systems, Vector Database, LangChain, Multi-Agent Workflows, Docker, AWS, MLOps, OpenAI, Gemini, Qdrant, FastAPI, Ollama, Quantization, AI Agents, Production AI, LTC Lab Azerbaijan, Modern AI Course, Prompt Engineering');
     }
 
     // Close mobile nav on escape key
@@ -341,7 +341,7 @@ export default {
             'Dərs 10: Prompt Engineering: Zero-Shot, Few-Shot və Chain-of-Thought',
             'Dərs 11: LLM API-lərinin İnteqrasiyası: OpenAI/Gemini',
             'Dərs 12: Semantik Axtarış və Vector DB: AI-ın Yaddaşı',
-            'Dərs 13: Praktiki Vector Search: ChromaDB ilə Tətbiq',
+            'Dərs 13: Praktiki Vector Search: Qdrant ilə Tətbiq',
             'Dərs 14: LangChain ilə LLM Chain-ləri: LCEL Əsasları',
             'Dərs 15: RAG Sisteminin Dizaynı: Sənədlərin Hazırlanması',
             'Dərs 16: RAG Sisteminin Qurulması: Retrieval və Generation'
@@ -475,8 +475,8 @@ export default {
           id: 11,
           month: 2,
           title: 'Sənəd Sual-Cavab Botu (RAG)',
-          description: 'Şirkətin daxili sənədlərini ChromaDB-yə yükləyib, sualları cavablandıran LangChain chatbot-u.',
-          technologies: ['Python', 'LangChain', 'ChromaDB', 'OpenAI API'],
+          description: 'Şirkətin daxili sənədlərini Qdrant-yə yükləyib, sualları cavablandıran LangChain chatbot-u.',
+          technologies: ['Python', 'LangChain', 'Qdrant', 'OpenAI API'],
           difficulty: 4,
           markets: ['UAE', 'Azerbaijan', 'Remote']
         },
@@ -611,8 +611,8 @@ export default {
           id: 26,
           month: 3,
           title: 'S3 Sənədlər üçün RAG Sistemi',
-          description: 'AWS S3-ə yeni PDF yükləndikdə avtomatik olaraq onu emal edib ChromaDB-yə əlavə edən proses.',
-          technologies: ['Python', 'AWS S3', 'Lambda', 'ChromaDB', 'RAG'],
+          description: 'AWS S3-ə yeni PDF yükləndikdə avtomatik olaraq onu emal edib Qdrant-yə əlavə edən proses.',
+          technologies: ['Python', 'AWS S3', 'Lambda', 'Qdrant', 'RAG'],
           difficulty: 5,
           markets: ['Remote', 'UAE']
         },

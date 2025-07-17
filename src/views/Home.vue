@@ -89,7 +89,7 @@
             </div>
             <h3 class="course-title" itemprop="name">Suni intellekt Mühəndisliyi - Modern LLM və Agent Sistemləri</h3>
             <p class="course-description" itemprop="description">
-              Python, PyTorch, Machine Learning, Neural Networks, LLM-lər, Vector Database, ChromaDB, LangChain, RAG sistemləri öyrənin. 
+              Python, PyTorch, Machine Learning, Neural Networks, LLM-lər, Vector Database, Qdrant, LangChain, RAG sistemləri öyrənin.
               Multi-Agent Workflows, Docker, AWS deployment və Production AI sistemləri master edin.
             </p>
             <div class="course-features">
