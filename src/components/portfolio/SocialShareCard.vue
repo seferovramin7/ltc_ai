@@ -319,7 +319,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Pushes header and footer to edges */
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   text-align: center;
 }
 

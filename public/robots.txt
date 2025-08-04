@@ -7,11 +7,11 @@ Sitemap: https://ltclab.edu.az/sitemap.xml
 # Crawl-delay for better server performance
 Crawl-delay: 1
 
-# Allow all important pages for suni intellekt SEO
+# Allow all important pages for süni intellekt SEO
 Allow: /ai-programming
 Allow: /ai-engineering
-Allow: /suni-intellekt
-Allow: /suni-intellekt-kurslari
+Allow: /süni-intellekt
+Allow: /süni-intellekt-kurslari
 Allow: /ai-kurslari
 Allow: /masin-oyrenme
 Allow: /derin-oyrenme

@@ -37,7 +37,7 @@ class OGImageService {
     
     this.ctx.fillStyle = '#64748b';
     this.ctx.font = '24px Inter, sans-serif';
-    this.ctx.fillText('Suni intellekt kursları', 50, 95);
+    this.ctx.fillText('Süni intellekt kursları', 50, 95);
 
     // Student Info
     const studentName = `${student.name} ${student.surname}`;
@@ -52,7 +52,7 @@ class OGImageService {
     // Program Info
     this.ctx.fillStyle = '#cb2360';
     this.ctx.font = 'bold 28px Inter, sans-serif';
-    this.ctx.fillText(student.programName || 'Suni intellekt Proqramı', 50, 300);
+    this.ctx.fillText(student.programName || 'Süni intellekt Proqramı', 50, 300);
 
     // Project Info (if available)
     if (project) {
@@ -109,7 +109,7 @@ class OGImageService {
   generateServerSideOGImageUrl(student, project = null) {
     const studentName = encodeURIComponent(`${student.name} ${student.surname}`);
     const profession = encodeURIComponent(student.profession);
-    const programName = encodeURIComponent(student.programName || 'Suni intellekt');
+    const programName = encodeURIComponent(student.programName || 'Süni intellekt');
     
     // You could use services like:
     // - Bannerbear API
@@ -183,7 +183,7 @@ class OGImageService {
     } else if (student.projects && student.projects.length > 0) {
       description += `${student.projects.length} layihə ilə LTC Lab-da təhsil alır.`;
     } else {
-      description += `LTC Lab-da suni intellekt sahəsində təhsil alır.`;
+      description += `LTC Lab-da süni intellekt sahəsində təhsil alır.`;
     }
     
     return description;

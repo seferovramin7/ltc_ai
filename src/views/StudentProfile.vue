@@ -115,8 +115,8 @@
         <div class="footer-content">
           <div class="footer-brand">
             <p class="footer-text">
-              LTC Lab - Azərbaycanın aparıcı <strong>suni intellekt</strong> və texnologiya təhsil mərkəzi.
-              <strong>Suni intellekt kursları</strong> ilə gələcəyin rəqəmsal dünyasına hazırlaşın.
+              LTC Lab - Azərbaycanın aparıcı <strong>süni intellekt</strong> və texnologiya təhsil mərkəzi.
+              <strong>Süni intellekt kursları</strong> ilə gələcəyin rəqəmsal dünyasına hazırlaşın.
             </p>
           </div>
           <div class="footer-links">

@@ -192,7 +192,7 @@ class ApiService {
     } else if (name.includes('Mühəndisliyi')) {
       return 'AI mühəndisliyi kursunda tələbələr maşın öyrənməsi və dərin öyrənmə texnologiyalarını öyrənirlər.';
     }
-    return 'Suni intellekt sahəsində peşəkar təhsil proqramı.';
+    return 'Süni intellekt sahəsində peşəkar təhsil proqramı.';
   }
 
   extractSkillsFromTechStack(techStack) {
@@ -303,7 +303,7 @@ class ApiService {
     const studentData = await this.getStudent(studentId);
     
     // Try to get the program name by finding which program this student's group belongs to
-    let programName = 'Suni intellekt Əsaslı Java Backend'; // Default
+    let programName = 'Süni intellekt Əsaslı Java Backend'; // Default
     try {
       const programs = await this.getPrograms();
       for (const program of programs) {

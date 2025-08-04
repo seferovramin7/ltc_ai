@@ -1,8 +1,8 @@
 class MetaService {
   constructor() {
     this.defaultMeta = {
-      title: 'Suni intellekt kursları LTC Lab - AI Proqramlaşdırma və Maşın Öyrənməsi | Bakı',
-      description: 'Suni intellekt kursları LTC Lab-da! AI proqramlaşdırma, maşın öyrənməsi, dərin öyrənmə öyrənin. Azərbaycanda ən yaxşı suni intellekt təhsili.',
+      title: 'Süni intellekt kursları LTC Lab - AI Proqramlaşdırma və Maşın Öyrənməsi | Bakı',
+      description: 'Süni intellekt kursları LTC Lab-da! AI proqramlaşdırma, maşın öyrənməsi, dərin öyrənmə öyrənin. Azərbaycanda ən yaxşı süni intellekt təhsili.',
       image: 'https://ai.ltclab.edu.az/lts_logo.29f6d82c.svg',
       url: 'https://ai.ltclab.edu.az/',
       type: 'website'
@@ -99,12 +99,12 @@ class MetaService {
       title = `${studentName} - ${projectHighlight.title} | LTC Lab Portfolio`
     } else if (student.projects && student.projects.length > 0) {
       const projectCount = student.projects.length
-      description += `${projectCount} layihə ilə LTC Lab-da suni intellekt sahəsində təhsil alır.`
+      description += `${projectCount} layihə ilə LTC Lab-da süni intellekt sahəsində təhsil alır.`
     } else {
-      description += `LTC Lab-da suni intellekt sahəsində təhsil alır.`
+      description += `LTC Lab-da süni intellekt sahəsində təhsil alır.`
     }
     
-    description += ` ${student.programName || 'Suni intellekt'} proqramı tələbəsi.`
+    description += ` ${student.programName || 'Süni intellekt'} proqramı tələbəsi.`
 
     // Set image - use student photo or default
     let imageUrl = student.photo
@@ -124,7 +124,7 @@ class MetaService {
     this.setType('profile')
     
     // Additional LinkedIn-specific meta tags
-    this.setMetaTag('og:site_name', 'LTC Lab - Suni intellekt kursları')
+    this.setMetaTag('og:site_name', 'LTC Lab - Süni intellekt kursları')
     this.setMetaTag('twitter:card', 'summary_large_image')
     this.setMetaTag('twitter:site', '@ltclab')
     
@@ -156,7 +156,7 @@ class MetaService {
       "image": student.photo && student.photo !== '/images/default-avatar.jpg' ? 
                `https://ai.ltclab.edu.az${student.photo}` : 
                "https://ai.ltclab.edu.az/lts_logo.29f6d82c.svg",
-      "description": `${studentName} - LTC Lab suni intellekt proqramı tələbəsi. ${student.profession}, ${student.age} yaş.`
+      "description": `${studentName} - LTC Lab süni intellekt proqramı tələbəsi. ${student.profession}, ${student.age} yaş.`
     }
 
     // Add projects if available
@@ -205,7 +205,7 @@ class MetaService {
   // Set portfolio listing meta tags
   setPortfolioListingMeta() {
     this.setTitle('Tələbə Portfolioları - LTC Lab AI Kursları | Bakı')
-    this.setDescription('LTC Lab tələbələrinin real AI layihələri və portfolioları. Suni intellekt kurslarımızda hazırlanan layihələri kəşf edin. AI proqramlaşdırma və maşın öyrənməsi nümunələri.')
+    this.setDescription('LTC Lab tələbələrinin real AI layihələri və portfolioları. Süni intellekt kurslarımızda hazırlanan layihələri kəşf edin. AI proqramlaşdırma və maşın öyrənməsi nümunələri.')
     this.setImage('/lts_logo.29f6d82c.svg')
     this.setUrl('/portfolio')
     this.setType('website')

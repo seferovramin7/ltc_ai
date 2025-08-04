@@ -38,7 +38,7 @@
       <div class="container">
         <div class="hero-content">
           <h1 class="hero-title"> Gələcəyin
-            <span class="highlight">Suni intellekt texnologiyaları</span> ilə tanış olun
+            <span class="highlight">Süni intellekt texnologiyaları</span> ilə tanış olun
           </h1>
           <div class="hero-tags">
             <span class="tag">🚀 Praktik təcrübə</span>
@@ -54,14 +54,14 @@
     <!-- Courses Section -->
     <section id="courses" class="courses" itemscope itemtype="https://schema.org/EducationalOrganization">
       <div class="container">
-        <h2 class="section-title">Suni intellekt kurslarımız</h2>
+        <h2 class="section-title">Süni intellekt kurslarımız</h2>
         <div class="courses-grid" itemscope itemtype="https://schema.org/Course">
           <!-- AI Programming Course -->
           <div class="course-card" data-aos="fade-up" data-aos-delay="100" itemscope itemtype="https://schema.org/Course">
             <div class="course-icon">
               <span class="icon-java" role="img" aria-label="Java Programming">☕</span>
             </div>
-            <h3 class="course-title" itemprop="name">Suni intellekt Əsaslı Java Backend</h3>
+            <h3 class="course-title" itemprop="name">Süni intellekt Əsaslı Java Backend</h3>
             <p class="course-description" itemprop="description">
               Core Java Proqramlaşdırma, Məlumat Strukturları və Alqoritmlər, Sistem Dizaynı öyrənin. Spring Boot, Mikroservislər, 
               AI Agent İnkişafı və müəssisə səviyyəli backend tətbiqləri hazırlayın.
@@ -87,7 +87,7 @@
             <div class="course-icon">
               <span class="icon-python" role="img" aria-label="Python Programming">🐍</span>
             </div>
-            <h3 class="course-title" itemprop="name">Suni intellekt Mühəndisliyi - Modern LLM və Agent Sistemləri</h3>
+            <h3 class="course-title" itemprop="name">Süni intellekt Mühəndisliyi - Modern LLM və Agent Sistemləri</h3>
             <p class="course-description" itemprop="description">
               Python, PyTorch, Machine Learning, Neural Networks, LLM-lər, Vector Database, Qdrant, LangChain, RAG sistemləri öyrənin.
               Multi-Agent Workflows, Docker, AWS deployment və Production AI sistemləri master edin.
@@ -113,7 +113,7 @@
             <div class="course-icon">
               <span class="icon-creativity">🎨</span>
             </div>
-            <h3 class="course-title">Suni intellekt yaradıcılıq</h3>
+            <h3 class="course-title">Süni intellekt yaradıcılıq</h3>
             <p class="course-description">
               Generative AI və yaradıcı texnologiyalar ilə incəsənət, dizayn və multimedia sahələrində 
               innovativ həllər yaradın. GPT, DALL-E və digər AI alətlərini öyrənin.
@@ -141,8 +141,8 @@
         <div class="message-content">
           <h2 class="message-title">Gələcəyin Texnologiyası İndi Əlinizdə</h2>
           <p class="message-text">
-            <strong>Suni intellekt</strong> yalnız gələcəyin texnologiyası deyil, bugünün reallığıdır. 
-            LTC Lab-da biz sizə <strong>suni intellekt kursları</strong> ilə bu güclü alətləri öyrətmək və karyeranızı növbəti səviyyəyə çatdırmaq üçün buradayıq.
+            <strong>Süni intellekt</strong> yalnız gələcəyin texnologiyası deyil, bugünün reallığıdır. 
+            LTC Lab-da biz sizə <strong>süni intellekt kursları</strong> ilə bu güclü alətləri öyrətmək və karyeranızı növbəti səviyyəyə çatdırmaq üçün buradayıq.
             Azərbaycanda ən yaxşı <strong>AI kursları</strong> və <strong>maşın öyrənməsi</strong> təhsili alın.
           </p>
           <div class="message-features">
@@ -178,8 +178,8 @@
         <div class="footer-content">
           <div class="footer-brand">
             <p class="footer-text">
-              LTC Lab - Azərbaycanın aparıcı <strong>suni intellekt</strong> və texnologiya təhsil mərkəzi. 
-              <strong>Suni intellekt kursları</strong> ilə gələcəyin rəqəmsal dünyasına hazırlaşın.
+              LTC Lab - Azərbaycanın aparıcı <strong>süni intellekt</strong> və texnologiya təhsil mərkəzi. 
+              <strong>Süni intellekt kursları</strong> ilə gələcəyin rəqəmsal dünyasına hazırlaşın.
             </p>
           </div>
           <div class="footer-links">
@@ -222,12 +222,12 @@ export default {
   },
   mounted() {
     // Set page title and meta tags
-    document.title = 'Suni intellekt kursları LTC Lab - AI Proqramlaşdırma və Maşın Öyrənməsi | Bakı';
+    document.title = 'Süni intellekt kursları LTC Lab - AI Proqramlaşdırma və Maşın Öyrənməsi | Bakı';
     
     // Update meta description
     let metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Suni intellekt kursları LTC Lab-da! AI proqramlaşdırma, maşın öyrənməsi, dərin öyrənmə, Python AI, Java AI öyrənin. Azərbaycanda ən yaxşı suni intellekt təhsili. Bakıda professional AI kursları.');
+      metaDescription.setAttribute('content', 'Süni intellekt kursları LTC Lab-da! AI proqramlaşdırma, maşın öyrənməsi, dərin öyrənmə, Python AI, Java AI öyrənin. Azərbaycanda ən yaxşı süni intellekt təhsili. Bakıda professional AI kursları.');
     }
     
     // Update meta keywords

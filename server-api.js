@@ -79,7 +79,7 @@ class ServerApiService {
         }
       } catch (error) {
         console.warn('Could not determine program name:', error);
-        student.programName = 'Suni intellekt Proqramı';
+        student.programName = 'Süni intellekt Proqramı';
       }
 
       // Cache the result
@@ -104,12 +104,12 @@ class ServerApiService {
       age: 22,
       profession: 'AI Mütəxəssis',
       photo: '/images/default-avatar.jpg',
-      programName: 'Suni intellekt Proqramı',
+      programName: 'Süni intellekt Proqramı',
       projects: [
         {
           id: 1,
           title: 'AI Layihəsi',
-          description: 'LTC Lab-da hazırlanan suni intellekt layihəsi',
+          description: 'LTC Lab-da hazırlanan süni intellekt layihəsi',
           techStack: ['Python', 'TensorFlow', 'React'],
           images: [],
           githubUrl: '',

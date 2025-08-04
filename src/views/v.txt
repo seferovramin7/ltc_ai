@@ -159,47 +159,45 @@
             }
 
             @font-face {
-                src: url(https://static.wmbcdn.com/uniweb/images/9c9c24447a47c472da4d7948a92b0b80.woff2) format('woff2'), url(https://static.wmbcdn.com/uniweb/images/e322c797415ef8f2220418e502f667f1.woff) format('woff');
-                font-family: FormaDJRCyrillicMicro;
+                font-family: 'Montserrat';
                 font-style: normal;
-                font-weight: normal;
+                font-weight: 300;
                 font-display: swap;
             }
 
             @font-face {
-                src: url(https://static.wmbcdn.com/uniweb/images/75abe17f14c327fb635978988d1a31c6.woff2) format('woff2'), url(https://static.wmbcdn.com/uniweb/images/ba890085082919698b1bc6ff34d6c3bf.woff) format('woff');
-                font-family: FormaDJRCyrillicMicro;
+                font-family: 'Montserrat';
+                font-style: normal;
+                font-weight: 400;
+                font-display: swap;
+            }
+
+            @font-face {
+                font-family: 'Montserrat';
                 font-style: normal;
                 font-weight: 500;
                 font-display: swap;
             }
 
             @font-face {
-                src: url(https://static.wmbcdn.com/uniweb/images/123ac5119f24c05548117d9c9cc3b15a.woff2) format('woff2'), url(https://static.wmbcdn.com/uniweb/images/982409f74245ddb492ca8b350f154537.woff) format('woff');
-                font-family: FormaDJRCyrillicMicro;
+                font-family: 'Montserrat';
                 font-style: normal;
-                font-weight: bold;
+                font-weight: 600;
+                font-display: swap;
             }
 
             @font-face {
-                src: url(https://static.wmbcdn.com/uniweb/images/7196902885b07551c97f8fbf24072363.woff2) format('woff2'), url(https://static.wmbcdn.com/uniweb/images/72a402557976753e8ee469c330f6c923.woff) format('woff');
-                font-family: FormaDJRCyrillicText;
+                font-family: 'Montserrat';
                 font-style: normal;
-                font-weight: normal;
+                font-weight: 700;
+                font-display: swap;
             }
 
             @font-face {
-                src: url(https://static.wmbcdn.com/uniweb/images/705810ddc181d651c013ef99c9dabcb5.woff2) format('woff2'), url(https://static.wmbcdn.com/uniweb/images/8b89de79bbaa526e015a511b9225e876.woff) format('woff');
-                font-family: FormaDJRCyrillicText;
+                font-family: 'Montserrat';
                 font-style: normal;
-                font-weight: 500;
-            }
-
-            @font-face {
-                src: url(https://static.wmbcdn.com/uniweb/images/a2419335b3b5c03e50f02efc5d8f0868.woff2) format('woff2'), url(https://static.wmbcdn.com/uniweb/images/b0814b171a45ad62f35be0ff35c52555.woff) format('woff');
-                font-family: FormaDJRCyrillicText;
-                font-style: normal;
-                font-weight: bold;
+                font-weight: 800;
+                font-display: swap;
             }
 
             :root {
@@ -655,7 +653,7 @@
                 flex-direction: column;
                 flex-grow: 1;
                 background-color: #ffffff;
-                font-family: Arial,sans-serif,Apple color emoji;
+                font-family: 'Montserrat', Arial, sans-serif, Apple color emoji;
             }
 
             /*!sc*/

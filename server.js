@@ -50,12 +50,12 @@ function generateMetaFromStudent(student) {
     title = `${studentName} - ${projectHighlight.title} | LTC Lab Portfolio`;
   } else if (student.projects && student.projects.length > 0) {
     const projectCount = student.projects.length;
-    description += `${projectCount} layihə ilə LTC Lab-da suni intellekt sahəsində təhsil alır.`;
+    description += `${projectCount} layihə ilə LTC Lab-da süni intellekt sahəsində təhsil alır.`;
   } else {
-    description += `LTC Lab-da suni intellekt sahəsində təhsil alır.`;
+    description += `LTC Lab-da süni intellekt sahəsində təhsil alır.`;
   }
   
-  description += ` ${student.programName || 'Suni intellekt'} proqramı tələbəsi.`;
+  description += ` ${student.programName || 'Süni intellekt'} proqramı tələbəsi.`;
 
   // Use student photo if available, otherwise use logo
   let imageUrl = 'https://ai.ltclab.edu.az/lts_logo.29f6d82c.svg';
@@ -145,7 +145,7 @@ app.get('/portfolio', (req, res) => {
   if (isCrawler(userAgent)) {
     const meta = {
       title: 'Tələbə Portfolioları - LTC Lab AI Kursları | Bakı',
-      description: 'LTC Lab tələbələrinin real AI layihələri və portfolioları. Suni intellekt kurslarımızda hazırlanan layihələri kəşf edin. AI proqramlaşdırma və maşın öyrənməsi nümunələri.',
+      description: 'LTC Lab tələbələrinin real AI layihələri və portfolioları. Süni intellekt kurslarımızda hazırlanan layihələri kəşf edin. AI proqramlaşdırma və maşın öyrənməsi nümunələri.',
       image: 'https://ai.ltclab.edu.az/lts_logo.29f6d82c.svg',
       url: 'https://ai.ltclab.edu.az/portfolio'
     };

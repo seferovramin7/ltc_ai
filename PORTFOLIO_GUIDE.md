@@ -105,7 +105,7 @@ Bütün portfolio məlumatları `src/data/portfolios.js` faylında saxlanılır.
 export const portfolioData = {
   programs: {
     'ai-programming': {
-      name: 'Suni intellekt Əsaslı Proqramlaşdırma',
+      name: 'Süni intellekt Əsaslı Proqramlaşdırma',
       description: 'AI əsaslı proqramlaşdırma kursu',
       groups: {
         'avernus': {

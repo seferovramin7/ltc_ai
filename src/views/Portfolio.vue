@@ -160,8 +160,8 @@
         <div class="footer-content">
           <div class="footer-brand">
             <p class="footer-text">
-              LTC Lab - Azərbaycanın aparıcı <strong>suni intellekt</strong> və texnologiya təhsil mərkəzi. 
-              <strong>Suni intellekt kursları</strong> ilə gələcəyin rəqəmsal dünyasına hazırlaşın.
+              LTC Lab - Azərbaycanın aparıcı <strong>süni intellekt</strong> və texnologiya təhsil mərkəzi. 
+              <strong>Süni intellekt kursları</strong> ilə gələcəyin rəqəmsal dünyasına hazırlaşın.
             </p>
           </div>
           <div class="footer-links">
@@ -465,7 +465,7 @@ export default {
     // Update meta keywords
     let metaKeywords = document.querySelector('meta[name="keywords"]')
     if (metaKeywords) {
-      metaKeywords.setAttribute('content', 'tələbə portfolioları, AI layihələri, suni intellekt layihələri, student projects, machine learning projects, Java projects, Python AI projects, LTC Lab students, AI programming portfolio')
+      metaKeywords.setAttribute('content', 'tələbə portfolioları, AI layihələri, süni intellekt layihələri, student projects, machine learning projects, Java projects, Python AI projects, LTC Lab students, AI programming portfolio')
     }
 
     // Close mobile nav on escape key
