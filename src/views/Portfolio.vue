@@ -10,7 +10,6 @@
         </div>
         <nav class="nav">
           <a href="/#courses" class="nav-link">Kurslar</a>
-          <router-link to="/portfolio" class="nav-link">Portfoliolar</router-link>
           <a href="https://www.ltclab.edu.az/about" class="nav-link">Haqqında</a>
           <a href="https://www.ltclab.edu.az/elaqe" class="nav-link">Əlaqə</a>
         </nav>
@@ -28,7 +27,6 @@
     <div class="mobile-nav" :class="{ active: isMobileNavOpen }">
       <button class="mobile-nav-close" @click="closeMobileNav">×</button>
       <a href="/#courses" class="mobile-nav-link" @click="closeMobileNav">Kurslar</a>
-      <router-link to="/portfolio" class="mobile-nav-link" @click="closeMobileNav">Portfoliolar</router-link>
       <a href="https://www.ltclab.edu.az/about" class="mobile-nav-link" @click="closeMobileNav">Haqqında</a>
       <a href="https://www.ltclab.edu.az/elaqe" class="mobile-nav-link" @click="closeMobileNav">Əlaqə</a>
     </div>
