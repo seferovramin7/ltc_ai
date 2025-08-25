@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://ltclab.edu.az/sitemap.xml
+
+# Crawl-delay for better server performance
+Crawl-delay: 1
+
+# Allow all important pages for süni intellekt SEO
+Allow: /ai-programming
+Allow: /ai-engineering
+Allow: /süni-intellekt
+Allow: /süni-intellekt-kurslari
+Allow: /ai-kurslari
+Allow: /masin-oyrenme
+Allow: /derin-oyrenme
+Allow: /python-ai
+Allow: /java-ai
+
+# Disallow unnecessary files
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /*.map$
+Disallow: /dist/
+Disallow: /.git/
+Disallow: /package.json
+Disallow: /vite.config.js
+Disallow: /jsconfig.json
+
+# Host specification
+Host: ltclab.edu.az 
