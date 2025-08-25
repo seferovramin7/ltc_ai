@@ -8,7 +8,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 export default defineConfig({
   // For custom domain deployment, use root path
   // For GitHub Pages with repository name, use: '/ltc_ai/'
-  base: '/ltc_ai/',
+  base: '/',
   plugins: [
     vue(),
     vueDevTools(),
